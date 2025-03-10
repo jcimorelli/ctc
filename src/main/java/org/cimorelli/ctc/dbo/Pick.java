@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,6 +18,7 @@ import org.cimorelli.ctc.enums.Round;
 public class Pick extends BaseEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pickId;
 	private int userId;
 	private int conferenceId;
@@ -25,8 +28,9 @@ public class Pick extends BaseEntity {
 	private String teamName;
 	private BigDecimal upsetPoints;
 	private BigDecimal roundPoints;
-	private LocalDateTime submittedTime;
+	private BigDecimal pointsMultiplier;
 	private BigDecimal pointsEarned;
+	private LocalDateTime submittedTime;
 
 	public int getPickId() {
 
@@ -108,14 +112,14 @@ public class Pick extends BaseEntity {
 		this.roundPoints = roundPoints;
 	}
 
-	public LocalDateTime getSubmittedTime() {
+	public BigDecimal getPointsMultiplier() {
 
-		return submittedTime;
+		return pointsMultiplier;
 	}
 
-	public void setSubmittedTime( LocalDateTime submittedTime ) {
+	public void setPointsMultiplier( BigDecimal pointsMultiplier ) {
 
-		this.submittedTime = submittedTime;
+		this.pointsMultiplier = pointsMultiplier;
 	}
 
 	public BigDecimal getPointsEarned() {
@@ -126,5 +130,15 @@ public class Pick extends BaseEntity {
 	public void setPointsEarned( BigDecimal pointsEarned ) {
 
 		this.pointsEarned = pointsEarned;
+	}
+
+	public LocalDateTime getSubmittedTime() {
+
+		return submittedTime;
+	}
+
+	public void setSubmittedTime( LocalDateTime submittedTime ) {
+
+		this.submittedTime = submittedTime;
 	}
 }

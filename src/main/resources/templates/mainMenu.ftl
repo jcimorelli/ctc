@@ -7,6 +7,8 @@
 </head>
 <body>
 <h1>Main Menu</h1>
+<#include "alerts.ftl">
+
 <ul>
     <li><a href="/conferenceWriteups">Conference Write-ups</a></li>
     <li><a href="/leaderboard">Leaderboard</a></li>

@@ -45,5 +45,6 @@ public class WebApp {
 
 		LoginController.defineRoutes( freeMarker );
 		MainMenuController.defineRoutes( freeMarker );
+		PickEntryController.defineRoutes( freeMarker );
 	}
 }

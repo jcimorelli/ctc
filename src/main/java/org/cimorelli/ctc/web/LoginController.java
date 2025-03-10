@@ -6,14 +6,14 @@ import static spark.Spark.post;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.cimorelli.ctc.util.UserUtil;
+import org.cimorelli.ctc.dbo.User;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
-public class LoginController {
+public class LoginController extends BaseController {
 
 	public static void defineRoutes( FreeMarkerEngine freeMarker ) {
 
@@ -32,6 +32,7 @@ public class LoginController {
 	public ModelAndView showLogin( Request req, Response res ) {
 
 		Map<String, Object> model = new HashMap<>();
+		updateAlerts( req, model );
 		return new ModelAndView( model, "login.ftl" );
 	}
 
@@ -40,14 +41,21 @@ public class LoginController {
 		String username = req.queryParams( "username" );
 		String password = req.queryParams( "password" );
 
-		if( UserUtil.authenticate( username, password ) ) {
+		if( authenticate( username, password ) ) {
 			// After successful login, redirect to main menu.
 			req.session( true ).attribute( "username", username );
 			res.redirect( "/mainMenu" );
 		} else {
+			displayError( req, "Login Failed!" );
 			res.redirect( "/login" );
 		}
 		return null;
+	}
+
+	private boolean authenticate( String username, String password ) {
+
+		User user = userDao.findByUserName( username );
+		return user != null && user.getPassword().equals( password );
 	}
 }
 

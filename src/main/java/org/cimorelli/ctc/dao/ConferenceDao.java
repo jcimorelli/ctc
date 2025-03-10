@@ -1,6 +1,8 @@
 package org.cimorelli.ctc.dao;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.NoResultException;
 
@@ -31,8 +33,10 @@ public class ConferenceDao extends BaseDao {
 
 	public List<Conference> findAll() {
 
-		return em.createQuery( "SELECT c FROM Conference c", Conference.class )
-			.getResultList();
+		List<Conference> conferences = em.createQuery( "SELECT c FROM Conference c", Conference.class ).getResultList();
+		return conferences.stream()
+			.sorted( Comparator.comparing( Conference::getConferenceName ) )
+			.collect( Collectors.toList() );
 	}
 
 }

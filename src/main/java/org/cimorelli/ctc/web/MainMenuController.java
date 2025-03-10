@@ -23,7 +23,7 @@ public class MainMenuController extends BaseController {
 	public ModelAndView showMainMenu( Request req, Response res ) {
 
 		Map<String, Object> model = new HashMap<>();
-		// You might want to pass user info in the model if needed.
+		updateAlerts( req, model );
 		return new ModelAndView( model, "mainMenu.ftl" );
 	}
 

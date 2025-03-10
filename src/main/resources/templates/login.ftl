@@ -7,6 +7,8 @@
 </head>
 <body>
 <h1>Login</h1>
+<#include "alerts.ftl">
+
 <form action="/login" method="post">
     <div>
         <label>Username:

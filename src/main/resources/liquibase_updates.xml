@@ -66,7 +66,7 @@
 			<column name="poolYear" type="INT">
 				<constraints nullable="false"/>
 			</column>
-			<column name="roundNum" type="INT">
+			<column name="round" type="VARCHAR(100)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="teamName" type="VARCHAR(100)">
@@ -78,10 +78,13 @@
 			<column name="roundPoints" type="DECIMAL(10,2)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="submittedTime" type="DATETIME">
+			<column name="pointsMultiplier" type="DECIMAL(10,2)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="pointsEarned" type="DECIMAL(10,2)"/>
+			<column name="submittedTime" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 	</changeSet>
 
