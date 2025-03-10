@@ -1,10 +1,15 @@
 package org.cimorelli.ctc.dbo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.cimorelli.ctc.enums.Round;
 
 @Entity
 @Table(name = "Picks")
@@ -15,12 +20,13 @@ public class Pick extends BaseEntity {
 	private int userId;
 	private int conferenceId;
 	private int poolYear;
-	private int roundNo;
+	@Enumerated(EnumType.STRING)
+	private Round round;
 	private String teamName;
-	private int upsetPoints;
-	private int roundPoints;
+	private BigDecimal upsetPoints;
+	private BigDecimal roundPoints;
 	private LocalDateTime submittedTime;
-	private int pointsEarned;
+	private BigDecimal pointsEarned;
 
 	public int getPickId() {
 
@@ -62,14 +68,14 @@ public class Pick extends BaseEntity {
 		this.poolYear = poolYear;
 	}
 
-	public int getRoundNo() {
+	public Round getRound() {
 
-		return roundNo;
+		return round;
 	}
 
-	public void setRoundNo( int roundNo ) {
+	public void setRound( Round round ) {
 
-		this.roundNo = roundNo;
+		this.round = round;
 	}
 
 	public String getTeamName() {
@@ -82,22 +88,22 @@ public class Pick extends BaseEntity {
 		this.teamName = teamName;
 	}
 
-	public int getUpsetPoints() {
+	public BigDecimal getUpsetPoints() {
 
 		return upsetPoints;
 	}
 
-	public void setUpsetPoints( int upsetPoints ) {
+	public void setUpsetPoints( BigDecimal upsetPoints ) {
 
 		this.upsetPoints = upsetPoints;
 	}
 
-	public int getRoundPoints() {
+	public BigDecimal getRoundPoints() {
 
 		return roundPoints;
 	}
 
-	public void setRoundPoints( int roundPoints ) {
+	public void setRoundPoints( BigDecimal roundPoints ) {
 
 		this.roundPoints = roundPoints;
 	}
@@ -112,12 +118,12 @@ public class Pick extends BaseEntity {
 		this.submittedTime = submittedTime;
 	}
 
-	public int getPointsEarned() {
+	public BigDecimal getPointsEarned() {
 
 		return pointsEarned;
 	}
 
-	public void setPointsEarned( int pointsEarned ) {
+	public void setPointsEarned( BigDecimal pointsEarned ) {
 
 		this.pointsEarned = pointsEarned;
 	}

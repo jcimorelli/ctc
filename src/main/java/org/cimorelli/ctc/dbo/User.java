@@ -13,7 +13,7 @@ public class User extends BaseEntity {
 	@Id
 	private int userId;
 	private String userName;
-	private String passwordHash;
+	private String password;
 	private LocalDateTime createdAt;
 
 	public int getUserId() {
@@ -36,14 +36,14 @@ public class User extends BaseEntity {
 		this.userName = userName;
 	}
 
-	public String getPasswordHash() {
+	public String getPassword() {
 
-		return passwordHash;
+		return password;
 	}
 
-	public void setPasswordHash( String passwordHash ) {
+	public void setPassword( String password ) {
 
-		this.passwordHash = passwordHash;
+		this.password = password;
 	}
 
 	public LocalDateTime getCreatedAt() {

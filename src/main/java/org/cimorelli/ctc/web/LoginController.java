@@ -1,0 +1,55 @@
+package org.cimorelli.ctc.web;
+
+import static spark.Spark.get;
+import static spark.Spark.post;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.cimorelli.ctc.util.UserUtil;
+
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+import spark.template.freemarker.FreeMarkerEngine;
+
+public class LoginController {
+
+	public static void defineRoutes( FreeMarkerEngine freeMarker ) {
+
+		LoginController loginController = new LoginController();
+		get( "/", loginController::redirectToLogin, freeMarker );
+		get( "/login", loginController::showLogin, freeMarker );
+		post( "/login", loginController::processLogin, freeMarker );
+	}
+
+	public ModelAndView redirectToLogin( Request req, Response res ) {
+
+		res.redirect( "/login" );
+		return null;
+	}
+
+	public ModelAndView showLogin( Request req, Response res ) {
+
+		Map<String, Object> model = new HashMap<>();
+		return new ModelAndView( model, "login.ftl" );
+	}
+
+	public ModelAndView processLogin( Request req, Response res ) {
+
+		String username = req.queryParams( "username" );
+		String password = req.queryParams( "password" );
+
+		if( UserUtil.authenticate( username, password ) ) {
+			// After successful login, redirect to main menu.
+			req.session( true ).attribute( "username", username );
+			res.redirect( "/mainMenu" );
+		} else {
+			res.redirect( "/login" );
+		}
+		return null;
+	}
+}
+
+
+

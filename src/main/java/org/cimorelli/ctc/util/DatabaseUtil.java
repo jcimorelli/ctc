@@ -32,7 +32,7 @@ public class DatabaseUtil {
 			connection = em.unwrap( Connection.class );
 			JdbcConnection jdbcConnection = new JdbcConnection( connection );
 			Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation( jdbcConnection );
-			Liquibase liquibase = new Liquibase( "schema_init.xml", new ClassLoaderResourceAccessor(), database );
+			Liquibase liquibase = new Liquibase( "liquibase_updates.xml", new ClassLoaderResourceAccessor(), database );
 			liquibase.update( ( String )null );
 		} catch( LiquibaseException e ) {
 			throw new RuntimeException( e );

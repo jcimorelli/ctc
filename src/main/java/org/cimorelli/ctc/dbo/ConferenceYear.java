@@ -1,5 +1,7 @@
 package org.cimorelli.ctc.dbo;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,7 +14,7 @@ public class ConferenceYear extends BaseEntity {
 	private int conferenceYearId;
 	private int conferenceId;
 	private int poolYear;
-	private int multiplier;
+	private BigDecimal multiplier;
 
 	public int getConferenceYearId() {
 
@@ -44,12 +46,12 @@ public class ConferenceYear extends BaseEntity {
 		this.poolYear = poolYear;
 	}
 
-	public int getMultiplier() {
+	public BigDecimal getMultiplier() {
 
 		return multiplier;
 	}
 
-	public void setMultiplier( int multiplier ) {
+	public void setMultiplier( BigDecimal multiplier ) {
 
 		this.multiplier = multiplier;
 	}

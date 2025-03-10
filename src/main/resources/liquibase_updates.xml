@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="liquibase_updates.xml">
+
+	<changeSet id="1" author="cimorelli">
+		<createTable tableName="Users">
+			<column name="userId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="userName" type="VARCHAR(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="password" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="createdAt" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2" author="cimorelli">
+		<createTable tableName="Conferences">
+			<column name="conferenceId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="abbreviation" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="3" author="cimorelli">
+		<createTable tableName="ConferenceYear">
+			<column name="conferenceYearId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="multiplier" type="DECIMAL(10,2)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="4" author="cimorelli">
+		<createTable tableName="Picks">
+			<column name="pickId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="userId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="roundNum" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="teamName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="upsetPoints" type="DECIMAL(10,2)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="roundPoints" type="DECIMAL(10,2)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="submittedTime" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="pointsEarned" type="DECIMAL(10,2)"/>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="5" author="cimorelli">
+		<createTable tableName="Results">
+			<column name="resultId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="round" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="teamName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="6" author="cimorelli">
+		<createTable tableName="ConferenceWriteups">
+			<column name="conferenceWriteupId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="markdownText" type="TEXT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="7" author="cimorelli">
+		<sql>INSERT INTO USERS (UserName, Password, CreatedAt) VALUES ('test', 'test', CURRENT_TIMESTAMP);</sql>
+	</changeSet>
+
+	<changeSet id="8" author="cimorelli">
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southeastern', 'SEC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big Ten', 'B10');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big 12', 'B12');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big East', 'BEast');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Atlantic Coast', 'ACC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Atlantic 10', 'A10');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Mountain West', 'MWC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Conference USA', 'CUSA');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('West Coast', 'WCC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Missouri Valluy', 'MVC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('American Athletic', 'AAC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big West', 'BWC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big South', 'BSouth');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Ivy League', 'Ivy');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Colonial Athletic', 'CAA');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Mid-American', 'MAC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southern', 'SoCon');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Horizon League', 'Horiz');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Sun Belt', 'SunB');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Metro Atlantic Athletic', 'MAAC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southland', 'SLand');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Western Athletic', 'WAC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Summit', 'Sum');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big Sky', 'BSky');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Ohio Valley', 'OVC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Patriot League', 'Pat');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('America East', 'AEC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Atlantic Sun', 'ASun');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Northeast', 'NEC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Mid-Eastern', 'MEAC');</sql>
+		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southwestern Athletic', 'SWAC');</sql>
+	</changeSet>
+
+	<changeSet id="9" author="cimorelli">
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (1, 2025, 7);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (2, 2025, 6);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (3, 2025, 6);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (4, 2025, 5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (5, 2025, 4.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (6, 2025, 4.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (7, 2025, 4.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (8, 2025, 4);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (9, 2025, 4.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (10, 2025, 4);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (11, 2025, 4);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (12, 2025, 3.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (13, 2025, 3);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (14, 2025, 3.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (15, 2025, 3);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (16, 2025, 2.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (17, 2025, 4);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (18, 2025, 3);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (19, 2025, 3);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (20, 2025, 2);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (21, 2025, 2.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (22, 2025, 3.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (23, 2025, 3);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (24, 2025, 2.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (25, 2025, 1.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (26, 2025, 2);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (27, 2025, 2.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (28, 2025, 2.5);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (29, 2025, 1);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (30, 2025, 1);</sql>
+		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (31, 2025, 1);</sql>
+	</changeSet>
+
+</databaseChangeLog>
