@@ -1,0 +1,20 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+			 version="2.2">
+	<persistence-unit name="ctcPU">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>org.cimorelli.ctc.dbo.Conference</class>
+		<class>org.cimorelli.ctc.dbo.ConferenceYear</class>
+		<class>org.cimorelli.ctc.dbo.ConferenceWriteup</class>
+		<class>org.cimorelli.ctc.dbo.Pick</class>
+		<class>org.cimorelli.ctc.dbo.Result</class>
+		<class>org.cimorelli.ctc.dbo.User</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ctc"/>
+			<property name="javax.persistence.jdbc.user" value="sa"/>
+			<property name="javax.persistence.jdbc.password" value="calc_sa"/>
+			<property name="eclipselink.logging.level" value="FINE"/>
+			<property name="eclipselink.jdbc.exclusive-connection.mode" value="Always" />
+		</properties>
+	</persistence-unit>
+</persistence>

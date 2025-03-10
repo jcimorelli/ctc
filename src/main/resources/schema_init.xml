@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="schema_init.xml">
+
+	<changeSet id="1" author="cimorelli">
+		<createTable tableName="Users">
+			<column name="userId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="userName" type="VARCHAR(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="passwordHash" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="createdAt" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2" author="cimorelli">
+		<createTable tableName="Conferences">
+			<column name="conferenceId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="3" author="cimorelli">
+		<createTable tableName="ConferenceYear">
+			<column name="conferenceYearId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="multiplier" type="INT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="4" author="cimorelli">
+		<createTable tableName="Picks">
+			<column name="pickId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="userId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="roundNum" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="teamName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="upsetPoints" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="roundPoints" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="submittedTime" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="pointsEarned" type="INT"/>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="5" author="cimorelli">
+		<createTable tableName="Results">
+			<column name="resultId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="roundNo" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="teamName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="6" author="cimorelli">
+		<createTable tableName="ConferenceWriteups">
+			<column name="conferenceWriteupId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="poolYear" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="markdownText" type="TEXT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
