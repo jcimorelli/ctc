@@ -15,7 +15,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 
 public class LoginController extends BaseController {
 
-	public static void defineRoutes( FreeMarkerEngine freeMarker ) {
+	public static void setup( FreeMarkerEngine freeMarker ) {
 
 		LoginController loginController = new LoginController();
 		get( "/", loginController::redirectToLogin, freeMarker );
@@ -44,7 +44,7 @@ public class LoginController extends BaseController {
 		if( authenticate( username, password ) ) {
 			// After successful login, redirect to main menu.
 			req.session( true ).attribute( "username", username );
-			res.redirect( "/mainMenu" );
+			res.redirect( "/home" );
 		} else {
 			displayError( req, "Login Failed!" );
 			res.redirect( "/login" );

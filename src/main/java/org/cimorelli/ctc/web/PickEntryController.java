@@ -18,7 +18,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 
 public class PickEntryController extends BaseController {
 
-	public static void defineRoutes( FreeMarkerEngine freeMarker ) {
+	public static void setup( FreeMarkerEngine freeMarker ) {
 
 		PickEntryController pickEntryController = new PickEntryController();
 		before( "/pickEntry", pickEntryController::requireLogin );

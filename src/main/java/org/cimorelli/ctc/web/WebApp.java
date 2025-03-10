@@ -43,8 +43,8 @@ public class WebApp {
 
 	private static void configureRoutes( FreeMarkerEngine freeMarker ) {
 
-		LoginController.defineRoutes( freeMarker );
-		MainMenuController.defineRoutes( freeMarker );
-		PickEntryController.defineRoutes( freeMarker );
+		LoginController.setup( freeMarker );
+		HomePageController.setup( freeMarker );
+		PickEntryController.setup( freeMarker );
 	}
 }

@@ -6,21 +6,22 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Login</h1>
-<#include "alerts.ftl">
+<div class="container">
+    <h1>C T C</h1>
 
-<form action="/login" method="post">
-    <div>
-        <label>Username:
-            <input type="text" name="username" required>
-        </label>
-    </div>
-    <div>
-        <label>Password:
-            <input type="password" name="password" required>
-        </label>
-    </div>
-    <button type="submit">Login</button>
-</form>
+    <#include "alerts.ftl">
+
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
 </body>
 </html>

@@ -1,57 +1,195 @@
-/* src/main/resources/public/css/styles.css */
-
-body {
+/* Basic reset / global styles */
+* {
 	margin: 0;
 	padding: 0;
-	background-color: #f0f0f0;
-	font-family: sans-serif;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #f2f2f2;
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+/* Main Container */
+.container {
+	max-width: 900px;
+	margin: 20px auto;
+	background: #fff;
+	padding: 20px;
+	border-radius: 6px;
+}
+
+/* Headings, spacing */
+h1, h2, h3, h4 {
+	margin-bottom: 15px;
 }
 
 h1 {
-	color: #333;
+	margin-top: 0;
+}
+
+/* Form styling */
+.form-group {
+	margin-bottom: 15px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* Buttons */
+button, .btn {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	background: #007bff;
+	color: #fff;
+	cursor: pointer;
+	font-size: 14px;
+	margin-right: 5px;
+}
+
+button:hover, .btn:hover {
+	background: #0056b3;
+}
+
+/* Tables */
+table {
+	width: 100%;
+	border-collapse: collapse;
 	margin-bottom: 20px;
 }
 
-label {
-	display: inline-block;
-	width: 80px;
-	margin-right: 10px;
+table th, table td {
+	padding: 10px;
+	border: 1px solid #ccc;
+	text-align: left;
 }
 
-button {
-	margin-top: 10px;
-	cursor: pointer;
+table thead {
+	background: #eee;
 }
 
-/* Base alert style */
+/* Alert styles */
 .alert {
 	padding: 15px;
 	margin-bottom: 20px;
 	border: 1px solid transparent;
 	border-radius: 4px;
-	font-family: sans-serif;
 	font-size: 14px;
 }
 
-/* Error alert style */
 .alert-error {
 	color: #a94442;
 	background-color: #f2dede;
 	border-color: #ebccd1;
 }
 
-/* Warning alert style */
 .alert-warning {
 	color: #8a6d3b;
 	background-color: #fcf8e3;
 	border-color: #faebcc;
 }
 
-/* Confirmation (success) alert style */
 .alert-confirmation, .alert-success {
 	color: #3c763d;
 	background-color: #dff0d8;
 	border-color: #d6e9c6;
 }
 
+/* Utility classes */
+.text-center {
+	text-align: center;
+}
 
+.mt-1 {
+	margin-top: 1rem;
+}
+
+.mt-2 {
+	margin-top: 2rem;
+}
+
+.mb-1 {
+	margin-bottom: 1rem;
+}
+
+.mb-2 {
+	margin-bottom: 2rem;
+}
+
+
+/* HEADER */
+header {
+	background-color: #333;
+	padding: 10px 20px;
+}
+
+/* A flex container for the header’s content */
+.header-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* space out the title and the nav */
+	height: 60px; /* optional fixed height for the header */
+}
+
+/* The site title (H1) in the header */
+header h1 {
+	color: #fff;
+	font-size: 1.5rem;
+	margin: 0;
+	padding: 0 10px; /* extra space around the text */
+	display: flex;
+	align-items: center;
+}
+
+/* NAVIGATION */
+nav {
+	margin-left: auto; /* Push the nav to the right if you want the title on the left */
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center; /* vertically center the links */
+}
+
+nav li {
+	margin-left: 20px;
+}
+
+nav li a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 500;
+	padding: 8px 16px;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+nav li a.active {
+	background-color: #555;
+}
+
+/* Hover effect for nav links */
+nav li a:hover {
+	background-color: #444;
+}
