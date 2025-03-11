@@ -1,6 +1,5 @@
 package org.cimorelli.ctc.web;
 
-import static spark.Spark.before;
 import static spark.Spark.get;
 
 import java.util.HashMap;
@@ -16,8 +15,14 @@ public class HomePageController extends BaseController {
 	public static void setup( FreeMarkerEngine freeMarker ) {
 
 		HomePageController homePageController = new HomePageController();
-		before( "/home", homePageController::requireLogin );
+		get( "/", homePageController::redirectToHome, freeMarker );
 		get( "/home", homePageController::showHomePage, freeMarker );
+	}
+
+	public ModelAndView redirectToHome( Request req, Response res ) {
+
+		res.redirect( "/home" );
+		return null;
 	}
 
 	public ModelAndView showHomePage( Request req, Response res ) {

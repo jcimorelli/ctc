@@ -21,7 +21,6 @@ public class PickEntryController extends BaseController {
 	public static void setup( FreeMarkerEngine freeMarker ) {
 
 		PickEntryController pickEntryController = new PickEntryController();
-		before( "/pickEntry", pickEntryController::requireLogin );
 		get( "/pickEntry", pickEntryController::showPickEntry, freeMarker );
 		post( "/pickEntry", pickEntryController::processPickEntry, freeMarker );
 	}

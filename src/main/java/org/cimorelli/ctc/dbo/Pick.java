@@ -20,7 +20,7 @@ public class Pick extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pickId;
-	private int userId;
+	private int entrantId;
 	private int conferenceId;
 	private int poolYear;
 	@Enumerated(EnumType.STRING)
@@ -56,14 +56,14 @@ public class Pick extends BaseEntity {
 		this.pickId = pickId;
 	}
 
-	public int getUserId() {
+	public int getEntrantId() {
 
-		return userId;
+		return entrantId;
 	}
 
-	public void setUserId( int userId ) {
+	public void setEntrantId( int entrantId ) {
 
-		this.userId = userId;
+		this.entrantId = entrantId;
 	}
 
 	public int getConferenceId() {

@@ -38,13 +38,16 @@ public class WebApp {
 		FreeMarkerEngine freeMarker = new FreeMarkerEngine( freeMarkerConfig );
 
 		// Build the app routes for each controller
-		configureRoutes( freeMarker );
+		setupControllers( freeMarker );
 	}
 
-	private static void configureRoutes( FreeMarkerEngine freeMarker ) {
+	private static void setupControllers( FreeMarkerEngine freeMarker ) {
 
-		LoginController.setup( freeMarker );
 		HomePageController.setup( freeMarker );
 		PickEntryController.setup( freeMarker );
+		LeaderboardController.setup( freeMarker );
+		ConferenceWriteupsController.setup( freeMarker );
+		PicksController.setup( freeMarker );
+		ResultEntryController.setup( freeMarker );
 	}
 }
