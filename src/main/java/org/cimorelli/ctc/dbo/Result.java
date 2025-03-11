@@ -22,6 +22,7 @@ public class Result extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Round round;
 	private String teamName;
+	//FIXME jason - add date without time for the result date
 
 	public int getResultId() {
 

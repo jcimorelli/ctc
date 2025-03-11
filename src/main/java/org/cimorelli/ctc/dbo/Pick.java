@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
 
 @Entity
@@ -30,20 +31,18 @@ public class Pick extends BaseEntity {
 	private BigDecimal upsetMultiplier;
 	private BigDecimal roundPoints;
 	private BigDecimal confMultiplier;
+	private BigDecimal weightedRoundPoints;
+	private BigDecimal weightedUpsetPoints;
 	private BigDecimal totalPotentialPoints;
-	private BigDecimal pointsEarned;
+	@Enumerated(EnumType.STRING)
+	private PickResult result;
 	private LocalDateTime submittedTime;
 
-	public void calculateTotalPotentialPoints() {
+	public void calculatePotentialPoints() {
 
-		BigDecimal weightedUpsetPoints = upsetPoints.multiply( upsetMultiplier );
-		BigDecimal unweightedTotalPoints = roundPoints.add( weightedUpsetPoints );
-		totalPotentialPoints = unweightedTotalPoints.multiply( confMultiplier );
-	}
-
-	public void scorePick( boolean isCorrect ) {
-
-		pointsEarned = isCorrect ? totalPotentialPoints : BigDecimal.ZERO;
+		weightedRoundPoints = roundPoints.multiply( confMultiplier );
+		weightedUpsetPoints = upsetPoints.multiply( upsetMultiplier ).multiply( confMultiplier );
+		totalPotentialPoints = weightedRoundPoints.add( weightedUpsetPoints );
 	}
 
 	public int getPickId() {
@@ -146,6 +145,26 @@ public class Pick extends BaseEntity {
 		this.confMultiplier = confMultiplier;
 	}
 
+	public BigDecimal getWeightedRoundPoints() {
+
+		return weightedRoundPoints;
+	}
+
+	public void setWeightedRoundPoints( BigDecimal weightedRoundPoints ) {
+
+		this.weightedRoundPoints = weightedRoundPoints;
+	}
+
+	public BigDecimal getWeightedUpsetPoints() {
+
+		return weightedUpsetPoints;
+	}
+
+	public void setWeightedUpsetPoints( BigDecimal weightedUpsetPoints ) {
+
+		this.weightedUpsetPoints = weightedUpsetPoints;
+	}
+
 	public BigDecimal getTotalPotentialPoints() {
 
 		return totalPotentialPoints;
@@ -156,14 +175,14 @@ public class Pick extends BaseEntity {
 		this.totalPotentialPoints = totalPotentialPoints;
 	}
 
-	public BigDecimal getPointsEarned() {
+	public PickResult getResult() {
 
-		return pointsEarned;
+		return result;
 	}
 
-	public void setPointsEarned( BigDecimal pointsEarned ) {
+	public void setResult( PickResult result ) {
 
-		this.pointsEarned = pointsEarned;
+		this.result = result;
 	}
 
 	public LocalDateTime getSubmittedTime() {

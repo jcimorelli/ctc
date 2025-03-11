@@ -2,8 +2,15 @@ package org.cimorelli.ctc.web;
 
 import static spark.Spark.get;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.cimorelli.ctc.dbo.Entrant;
+import org.cimorelli.ctc.dbo.Pick;
+import org.cimorelli.ctc.dto.LeaderboardRow;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -14,15 +21,32 @@ public class LeaderboardController extends BaseController {
 
 	public static void setup( FreeMarkerEngine freeMarker ) {
 
-		LeaderboardController leaderboardController = new LeaderboardController();
-		get( "/leaderboard", leaderboardController::showLeaderboard, freeMarker );
+		LeaderboardController controller = new LeaderboardController();
+		get( "/leaderboard", controller::showLeaderboard, freeMarker );
 	}
 
 	public ModelAndView showLeaderboard( Request req, Response res ) {
 
+		int currentPoolYear = conferenceYearDao.findCurrentYear();
+		List<Entrant> entrants = entrantDao.findAll();
+
+		List<LeaderboardRow> leaderboard = new ArrayList<>();
+		for( Entrant e : entrants ) {
+			LeaderboardRow row = new LeaderboardRow();
+			row.setNickname( e.getNickname() );
+			row.setPlayingForFun( e.isPlayingForFun() );
+			row.setPoolYear( currentPoolYear );
+			row.setPicks( pickDao.findByEntrantIdAndYear( e.getEntrantId(), currentPoolYear ) );
+			row.calculate();
+			leaderboard.add( row );
+		}
+
+		// Sort by totalPoints descending
+		leaderboard.sort( ( r1, r2 ) -> r2.getTotalPoints().compareTo( r1.getTotalPoints() ) );
+
 		Map<String, Object> model = new HashMap<>();
 		updateAlerts( req, model );
+		model.put( "leaderboard", leaderboard );
 		return new ModelAndView( model, "leaderboard.ftl" );
 	}
-
 }

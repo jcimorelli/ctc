@@ -81,10 +81,18 @@
 			<column name="confMultiplier" type="DECIMAL(10,2)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="weightedRoundPoints" type="DECIMAL(10,2)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="weightedUpsetPoints" type="DECIMAL(10,2)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="totalPotentialPoints" type="DECIMAL(10,2)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="pointsEarned" type="DECIMAL(10,2)"/>
+			<column name="result" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="submittedTime" type="DATETIME">
 				<constraints nullable="false"/>
 			</column>

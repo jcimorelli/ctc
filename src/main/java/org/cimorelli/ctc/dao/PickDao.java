@@ -16,10 +16,11 @@ public class PickDao extends BaseDao {
 		return em.find( Pick.class, id );
 	}
 
-	public List<Pick> findByUser( int userId ) {
+	public List<Pick> findByEntrantIdAndYear( int entrantId, int poolYear ) {
 
-		return em.createQuery( "SELECT p FROM Pick p WHERE p.userId = :userId", Pick.class )
-			.setParameter( "userId", userId )
+		return em.createQuery( "SELECT p FROM Pick p WHERE p.entrantId = :entrantId AND p.poolYear = :poolYear", Pick.class )
+			.setParameter( "entrantId", entrantId )
+			.setParameter( "poolYear", poolYear )
 			.getResultList();
 	}
 

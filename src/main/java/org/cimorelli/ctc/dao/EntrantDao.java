@@ -1,5 +1,7 @@
 package org.cimorelli.ctc.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import org.cimorelli.ctc.dbo.Entrant;
@@ -25,6 +27,12 @@ public class EntrantDao extends BaseDao {
 		} catch( NoResultException e ) {
 			return null;
 		}
+	}
+
+	public List<Entrant> findAll() {
+
+		return em.createQuery( "SELECT e FROM Entrant e", Entrant.class )
+			.getResultList();
 	}
 
 }

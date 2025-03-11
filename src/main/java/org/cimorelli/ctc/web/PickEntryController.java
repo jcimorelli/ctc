@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cimorelli.ctc.dbo.Pick;
+import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
 
 import spark.ModelAndView;
@@ -88,8 +89,8 @@ public class PickEntryController extends BaseController {
 			pick.setUpsetMultiplier( round.getUpsetMultiplier() );
 			pick.setRoundPoints( round.getRoundPoints() );
 			pick.setConfMultiplier( conferenceMultiplier );
-			pick.calculateTotalPotentialPoints();
-			pick.setPointsEarned( null );// null until games are played
+			pick.calculatePotentialPoints();
+			pick.setResult( PickResult.UNDECIDED );
 			pick.setSubmittedTime( LocalDateTime.now() );
 			pickDao.create( pick );
 		}
