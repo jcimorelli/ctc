@@ -86,9 +86,11 @@ public class PickEntryController extends BaseController {
 			pick.setRound( round );
 			pick.setTeamName( teamName );
 			pick.setUpsetPoints( upsetPts );
+			pick.setUpsetMultiplier( round.getUpsetMultiplier() );
 			pick.setRoundPoints( round.getRoundPoints() );
-			pick.setPointsMultiplier( conferenceMultiplier );
-			pick.setPointsEarned( null );//This gets set when results are added [(upset point + round points) * multiplier]
+			pick.setConfMultiplier( conferenceMultiplier );
+			pick.calculateTotalPotentialPoints();
+			pick.setPointsEarned( null );// null until games are played
 			pick.setSubmittedTime( LocalDateTime.now() );
 			pickDao.create( pick );
 		}

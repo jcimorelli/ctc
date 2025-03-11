@@ -1,10 +1,14 @@
 package org.cimorelli.ctc.dbo;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.cimorelli.ctc.enums.Round;
 
 @Entity
 @Table(name = "Results")
@@ -15,7 +19,8 @@ public class Result extends BaseEntity {
 	private int resultId;
 	private int conferenceId;
 	private int poolYear;
-	private int roundNo;
+	@Enumerated(EnumType.STRING)
+	private Round round;
 	private String teamName;
 
 	public int getResultId() {
@@ -48,14 +53,14 @@ public class Result extends BaseEntity {
 		this.poolYear = poolYear;
 	}
 
-	public int getRoundNo() {
+	public Round getRound() {
 
-		return roundNo;
+		return round;
 	}
 
-	public void setRoundNo( int roundNo ) {
+	public void setRound( Round round ) {
 
-		this.roundNo = roundNo;
+		this.round = round;
 	}
 
 	public String getTeamName() {

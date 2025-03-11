@@ -27,10 +27,24 @@ public class Pick extends BaseEntity {
 	private Round round;
 	private String teamName;
 	private BigDecimal upsetPoints;
+	private BigDecimal upsetMultiplier;
 	private BigDecimal roundPoints;
-	private BigDecimal pointsMultiplier;
+	private BigDecimal confMultiplier;
+	private BigDecimal totalPotentialPoints;
 	private BigDecimal pointsEarned;
 	private LocalDateTime submittedTime;
+
+	public void calculateTotalPotentialPoints() {
+
+		BigDecimal weightedUpsetPoints = upsetPoints.multiply( upsetMultiplier );
+		BigDecimal unweightedTotalPoints = roundPoints.add( weightedUpsetPoints );
+		totalPotentialPoints = unweightedTotalPoints.multiply( confMultiplier );
+	}
+
+	public void scorePick( boolean isCorrect ) {
+
+		pointsEarned = isCorrect ? totalPotentialPoints : BigDecimal.ZERO;
+	}
 
 	public int getPickId() {
 
@@ -112,14 +126,34 @@ public class Pick extends BaseEntity {
 		this.roundPoints = roundPoints;
 	}
 
-	public BigDecimal getPointsMultiplier() {
+	public BigDecimal getUpsetMultiplier() {
 
-		return pointsMultiplier;
+		return upsetMultiplier;
 	}
 
-	public void setPointsMultiplier( BigDecimal pointsMultiplier ) {
+	public void setUpsetMultiplier( BigDecimal upsetMultiplier ) {
 
-		this.pointsMultiplier = pointsMultiplier;
+		this.upsetMultiplier = upsetMultiplier;
+	}
+
+	public BigDecimal getConfMultiplier() {
+
+		return confMultiplier;
+	}
+
+	public void setConfMultiplier( BigDecimal confMultiplier ) {
+
+		this.confMultiplier = confMultiplier;
+	}
+
+	public BigDecimal getTotalPotentialPoints() {
+
+		return totalPotentialPoints;
+	}
+
+	public void setTotalPotentialPoints( BigDecimal totalPotentialPoints ) {
+
+		this.totalPotentialPoints = totalPotentialPoints;
 	}
 
 	public BigDecimal getPointsEarned() {
