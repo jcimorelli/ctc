@@ -32,6 +32,7 @@ public class PickEntryController extends BaseController {
 		updateAlerts( req, model );
 
 		model.put( "conferenceOptions", conferenceDao.findAll() );
+		model.put( "entrantOptions", entrantDao.findAll() );
 		model.put( "roundOptions", Arrays.asList( Round.values() ) );
 		return new ModelAndView( model, "pickEntry.ftl" );
 	}
@@ -39,10 +40,8 @@ public class PickEntryController extends BaseController {
 	public ModelAndView processPickEntry( Request req, Response res ) {
 
 		try {
-			// The conference selection remains a single value
 			int conferenceId = Integer.parseInt( req.queryParams( "conferenceId" ) );
-
-			// The following fields are submitted as arrays (from table rows)
+			int entrantId = Integer.parseInt( req.queryParams( "entrantId" ) );
 			String[] rounds = req.queryParamsValues( "round[]" );
 			String[] teamNames = req.queryParamsValues( "teamName[]" );
 			String[] upsetPoints = req.queryParamsValues( "upsetPoints[]" );
@@ -59,7 +58,7 @@ public class PickEntryController extends BaseController {
 				return null;
 			}
 
-			savePicks( rounds, teamNames, upsetPoints, conferenceId );
+			savePicks( rounds, teamNames, upsetPoints, conferenceId, entrantId );
 			displayConfirmation( req, "Picks submitted!" );
 		} catch( Exception e ) {
 			displayError( req, e.getMessage() );
@@ -71,7 +70,7 @@ public class PickEntryController extends BaseController {
 		return null;
 	}
 
-	private void savePicks( String[] rounds, String[] teamNames, String[] upsetPoints, int conferenceId ) {
+	private void savePicks( String[] rounds, String[] teamNames, String[] upsetPoints, int conferenceId, int entrantId ) {
 
 		int poolYear = conferenceYearDao.findCurrentYear();
 		BigDecimal conferenceMultiplier = conferenceYearDao.findMultiplier( conferenceId, poolYear );
@@ -81,6 +80,7 @@ public class PickEntryController extends BaseController {
 			BigDecimal upsetPts = BigDecimal.valueOf( Long.parseLong( upsetPoints[i] ) );
 
 			Pick pick = new Pick();
+			pick.setEntrantId( entrantId );
 			pick.setPoolYear( poolYear );
 			pick.setConferenceId( conferenceId );
 			pick.setRound( round );

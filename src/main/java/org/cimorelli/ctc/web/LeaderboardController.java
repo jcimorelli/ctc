@@ -2,14 +2,12 @@ package org.cimorelli.ctc.web;
 
 import static spark.Spark.get;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.cimorelli.ctc.dbo.Entrant;
-import org.cimorelli.ctc.dbo.Pick;
 import org.cimorelli.ctc.dto.LeaderboardRow;
 
 import spark.ModelAndView;

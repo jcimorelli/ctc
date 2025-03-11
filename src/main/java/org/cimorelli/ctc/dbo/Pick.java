@@ -37,6 +37,7 @@ public class Pick extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private PickResult result;
 	private LocalDateTime submittedTime;
+	private int resultId;
 
 	public void calculatePotentialPoints() {
 
@@ -175,6 +176,16 @@ public class Pick extends BaseEntity {
 		this.totalPotentialPoints = totalPotentialPoints;
 	}
 
+	public LocalDateTime getSubmittedTime() {
+
+		return submittedTime;
+	}
+
+	public void setSubmittedTime( LocalDateTime submittedTime ) {
+
+		this.submittedTime = submittedTime;
+	}
+
 	public PickResult getResult() {
 
 		return result;
@@ -185,13 +196,13 @@ public class Pick extends BaseEntity {
 		this.result = result;
 	}
 
-	public LocalDateTime getSubmittedTime() {
+	public int getResultId() {
 
-		return submittedTime;
+		return resultId;
 	}
 
-	public void setSubmittedTime( LocalDateTime submittedTime ) {
+	public void setResultId( int resultId ) {
 
-		this.submittedTime = submittedTime;
+		this.resultId = resultId;
 	}
 }

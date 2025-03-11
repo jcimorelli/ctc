@@ -1,8 +1,13 @@
 <#include "header.ftl">
 <h2>Pick Entry</h2>
 <form action="/pickEntry" method="post">
-    <!-- Conference selection -->
     <div class="form-group">
+        <label for="entrantId">Entrant</label>
+        <select id="entrantId" name="entrantId">
+            <#list entrantOptions as entrant>
+                <option value="${entrant.entrantId}">${entrant.nickname}</option>
+            </#list>
+        </select>
         <label for="conferenceId">Conference</label>
         <select id="conferenceId" name="conferenceId">
             <#list conferenceOptions as conference>
@@ -10,7 +15,6 @@
             </#list>
         </select>
     </div>
-    <!-- Table for pick rows -->
     <table id="picksTable">
         <thead>
         <tr>
@@ -41,7 +45,7 @@
                     <td>
                         <select name="round[]">
                             <#list roundOptions as option>
-                                <option value="${option}">${option}</option>
+                                <option value="${option}">${option.description}</option>
                             </#list>
                         </select>
                     </td>

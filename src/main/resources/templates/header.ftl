@@ -14,7 +14,7 @@
             <li><a href="/leaderboard">Leaderboard</a></li>
             <li><a href="/picks">Picks</a></li>
             <li><a href="/pickEntry">Pick Entry</a></li>
-            <li><a href="/resultEntry">Results Entry</a></li>
+            <li><a href="/resultEntry">Game Result Entry</a></li>
         </ul>
     </nav>
 </header>

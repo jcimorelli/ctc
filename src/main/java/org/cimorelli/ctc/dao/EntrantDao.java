@@ -1,6 +1,8 @@
 package org.cimorelli.ctc.dao;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.NoResultException;
 
@@ -31,8 +33,10 @@ public class EntrantDao extends BaseDao {
 
 	public List<Entrant> findAll() {
 
-		return em.createQuery( "SELECT e FROM Entrant e", Entrant.class )
-			.getResultList();
+		List<Entrant> entrants = em.createQuery( "SELECT e FROM Entrant e", Entrant.class ).getResultList();
+		return entrants.stream()
+			.sorted( Comparator.comparing( Entrant::getNickname ) )
+			.collect( Collectors.toList() );
 	}
 
 }

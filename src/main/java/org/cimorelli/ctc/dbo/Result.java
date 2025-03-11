@@ -1,5 +1,8 @@
 package org.cimorelli.ctc.dbo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,8 +24,10 @@ public class Result extends BaseEntity {
 	private int poolYear;
 	@Enumerated(EnumType.STRING)
 	private Round round;
-	private String teamName;
-	//FIXME jason - add date without time for the result date
+	private String winningTeamName;
+	private String losingTeamName;
+	private LocalDate gameDate;
+	private LocalDateTime submittedTime;
 
 	public int getResultId() {
 
@@ -64,13 +69,43 @@ public class Result extends BaseEntity {
 		this.round = round;
 	}
 
-	public String getTeamName() {
+	public String getWinningTeamName() {
 
-		return teamName;
+		return winningTeamName;
 	}
 
-	public void setTeamName( String teamName ) {
+	public void setWinningTeamName( String winningTeamName ) {
 
-		this.teamName = teamName;
+		this.winningTeamName = winningTeamName;
+	}
+
+	public String getLosingTeamName() {
+
+		return losingTeamName;
+	}
+
+	public void setLosingTeamName( String losingTeamName ) {
+
+		this.losingTeamName = losingTeamName;
+	}
+
+	public LocalDateTime getSubmittedTime() {
+
+		return submittedTime;
+	}
+
+	public void setSubmittedTime( LocalDateTime submittedTime ) {
+
+		this.submittedTime = submittedTime;
+	}
+
+	public LocalDate getGameDate() {
+
+		return gameDate;
+	}
+
+	public void setGameDate( LocalDate gameDate ) {
+
+		this.gameDate = gameDate;
 	}
 }

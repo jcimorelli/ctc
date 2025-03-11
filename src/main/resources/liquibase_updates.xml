@@ -90,12 +90,13 @@
 			<column name="totalPotentialPoints" type="DECIMAL(10,2)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="result" type="VARCHAR(100)">
-				<constraints nullable="false"/>
-			</column>
 			<column name="submittedTime" type="DATETIME">
 				<constraints nullable="false"/>
 			</column>
+			<column name="result" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="resultId" type="INT"/>
 		</createTable>
 	</changeSet>
 
@@ -113,7 +114,16 @@
 			<column name="round" type="VARCHAR(100)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="teamName" type="VARCHAR(100)">
+			<column name="winningTeamName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="losingTeamName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="gameDate" type="DATE">
+				<constraints nullable="false"/>
+			</column>
+			<column name="submittedTime" type="DATETIME">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
