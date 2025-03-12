@@ -39,4 +39,13 @@ public class PickDao extends BaseDao {
 			.setParameter( "poolYear", poolYear )
 			.getResultList();
 	}
+
+	public List<Pick> findByEntrantAndConferenceAndYear( int entrantId, int conferenceId, int poolYear ) {
+
+		return em.createQuery( "SELECT p FROM Pick p WHERE p.entrantId = :entrantId AND p.conferenceId = :conferenceId AND p.poolYear = :poolYear", Pick.class )
+			.setParameter( "entrantId", entrantId )
+			.setParameter( "conferenceId", conferenceId )
+			.setParameter( "poolYear", poolYear )
+			.getResultList();
+	}
 }

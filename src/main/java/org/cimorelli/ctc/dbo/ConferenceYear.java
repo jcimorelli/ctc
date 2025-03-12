@@ -18,6 +18,7 @@ public class ConferenceYear extends BaseEntity {
 	private int conferenceId;
 	private int poolYear;
 	private BigDecimal multiplier;
+	private BigDecimal winningPointTotal;
 
 	public int getConferenceYearId() {
 
@@ -57,5 +58,15 @@ public class ConferenceYear extends BaseEntity {
 	public void setMultiplier( BigDecimal multiplier ) {
 
 		this.multiplier = multiplier;
+	}
+
+	public BigDecimal getWinningPointTotal() {
+
+		return winningPointTotal;
+	}
+
+	public void setWinningPointTotal( BigDecimal winningPointTotal ) {
+
+		this.winningPointTotal = winningPointTotal;
 	}
 }

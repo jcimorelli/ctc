@@ -3,14 +3,21 @@ package org.cimorelli.ctc.web;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.cimorelli.ctc.dbo.ConferenceYear;
+import org.cimorelli.ctc.dbo.ConferenceYearWinner;
+import org.cimorelli.ctc.dbo.Entrant;
 import org.cimorelli.ctc.dbo.Pick;
 import org.cimorelli.ctc.dbo.Result;
+import org.cimorelli.ctc.dto.LeaderboardRow;
 import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
 
@@ -74,6 +81,7 @@ public class ResultEntryController extends BaseController {
 	private void saveResults( String[] rounds, String[] winningTeamNames, String[] losingTeamNames, String[] gameDates, int conferenceId ) {
 
 		int poolYear = conferenceYearDao.findCurrentYear();
+		List<Result> savedResults = new ArrayList<>();
 		for( int i = 0; i < rounds.length; i++ ) {
 			Round round = Round.valueOf( rounds[i] );
 			String winningTeamName = winningTeamNames[i];
@@ -89,8 +97,17 @@ public class ResultEntryController extends BaseController {
 			result.setGameDate( gameDate );
 			result.setSubmittedTime( LocalDateTime.now() );
 			resultDao.create( result );
+			savedResults.add( result );
+		}
 
+		// Update picks based on the results
+		for( Result result : savedResults ) {
 			updatePicks( result );
+		}
+
+		// Update conference winners
+		for( Result result : savedResults.stream().filter( r -> r.getRound() == Round.CHAMP ).toList() ) {
+			updateConferenceWinners( result );
 		}
 	}
 
@@ -103,7 +120,7 @@ public class ResultEntryController extends BaseController {
 
 		// Mark all correct picks
 		for( Pick pick : pickDao.findByTeamAndYear( winningTeamName, poolYear ) ) {
-			if( pick.getResult() == PickResult.UNDECIDED && pick.getRound() == round ) {
+			if( pick.getRound() == round ) {
 				pick.setResultId( result.getResultId() );
 				pick.setResult( PickResult.CORRECT );
 				pickDao.update( pick );
@@ -112,11 +129,54 @@ public class ResultEntryController extends BaseController {
 
 		// Mark all incorrect picks (losing team in this round or later)
 		for( Pick pick : pickDao.findByTeamAndYear( losingTeamName, poolYear ) ) {
-			if( pick.getResult() == PickResult.UNDECIDED && pick.getRound().getOrder() >= round.getOrder() ) {
+			if( pick.getRound().getOrder() >= round.getOrder() ) {
 				pick.setResultId( result.getResultId() );
 				pick.setResult( PickResult.WRONG );
 				pickDao.update( pick );
 			}
+		}
+	}
+
+	private void updateConferenceWinners( Result result ) {
+
+		// If winners already existed, remove them
+		ConferenceYear conferenceYear = conferenceYearDao.findByConferenceIdAndYear( result.getConferenceId(), result.getPoolYear() );
+		List<ConferenceYearWinner> existingWinners = conferenceYearWinnerDao.findByConferenceYear( conferenceYear.getConferenceYearId() );
+		if( !existingWinners.isEmpty() ) {
+			for( ConferenceYearWinner winner : existingWinners ) {
+				conferenceYearWinnerDao.delete( winner );
+			}
+		}
+
+		// Determine winners
+		List<Entrant> entrants = entrantDao.findAll();
+		BigDecimal winningTotal = BigDecimal.ZERO;
+		List<Integer> winnerIds = new ArrayList<>();
+		for( Entrant entrant : entrants ) {
+			List<Pick> conferencePicks = pickDao.findByEntrantAndConferenceAndYear( entrant.getEntrantId(), result.getConferenceId(), result.getPoolYear() );
+			LeaderboardRow calc = new LeaderboardRow();
+			calc.setPicks( conferencePicks );
+			calc.calculate();
+			BigDecimal points = calc.getTotalPoints();
+			if( points.equals( winningTotal ) ) {
+				winnerIds.add( entrant.getEntrantId() );
+			} else if( points.compareTo( winningTotal ) > 0 ) {
+				winningTotal = points;
+				winnerIds.clear();
+				winnerIds.add( entrant.getEntrantId() );
+			}
+		}
+
+		// Save score
+		conferenceYear.setWinningPointTotal( winningTotal );
+		conferenceYearDao.update( conferenceYear );
+
+		// Save winners
+		for( int winnerId : winnerIds ) {
+			ConferenceYearWinner winner = new ConferenceYearWinner();
+			winner.setConferenceYearId( conferenceYear.getConferenceId() );
+			winner.setEntrantId( winnerId );
+			conferenceYearWinnerDao.create( winner );
 		}
 	}
 

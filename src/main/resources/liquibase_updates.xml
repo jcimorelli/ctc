@@ -46,6 +46,7 @@
 			<column name="multiplier" type="DECIMAL(10,2)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="winningPointTotal" type="DECIMAL(10,2)"/>
 		</createTable>
 	</changeSet>
 
@@ -147,6 +148,20 @@
 	</changeSet>
 
 	<changeSet id="7" author="cimorelli">
+		<createTable tableName="ConferenceYearWinner">
+			<column name="conferenceYearWinnerId" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="conferenceYearId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="entrantId" type="INT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="8" author="cimorelli">
 		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southeastern', 'SEC');</sql>
 		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big Ten', 'B10');</sql>
 		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big 12', 'B12');</sql>
@@ -180,7 +195,7 @@
 		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southwestern Athletic', 'SWAC');</sql>
 	</changeSet>
 
-	<changeSet id="8" author="cimorelli">
+	<changeSet id="9" author="cimorelli">
 		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (1, 2025, 7);</sql>
 		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (2, 2025, 6);</sql>
 		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (3, 2025, 6);</sql>
@@ -213,8 +228,8 @@
 		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (30, 2025, 1);</sql>
 		<sql>INSERT INTO CONFERENCEYEAR (ConferenceId, PoolYear, Multiplier) VALUES (31, 2025, 1);</sql>
 	</changeSet>
-	
-	<changeSet id="9" author="cimorelli">
+
+	<changeSet id="10" author="cimorelli">
 		<sql>INSERT INTO Entrants (Nickname, PlayingForFun) VALUES ('J', false);</sql>
 		<sql>INSERT INTO Entrants (Nickname, PlayingForFun) VALUES ('CONNOR', false);</sql>
 		<sql>INSERT INTO Entrants (Nickname, PlayingForFun) VALUES ('AY', false);</sql>

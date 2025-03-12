@@ -39,4 +39,15 @@ public class EntrantDao extends BaseDao {
 			.collect( Collectors.toList() );
 	}
 
+	public List<Entrant> findWinnersByConferenceAndYear( int conferenceId, int poolYear ) {
+
+		return em.createQuery( "SELECT e FROM Entrant e " +
+							   "JOIN ConferenceYearWinner cyw ON cyw.entrantId = e.entrantId " +
+							   "JOIN ConferenceYear cy ON cy.conferenceYearId = cyw.conferenceYearId " +
+							   "WHERE cy.conferenceId = :conferenceId AND cy.poolYear = :poolYear", Entrant.class )
+			.setParameter( "conferenceId", conferenceId )
+			.setParameter( "poolYear", poolYear )
+			.getResultList();
+	}
+
 }

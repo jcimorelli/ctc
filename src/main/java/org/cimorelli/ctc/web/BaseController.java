@@ -5,6 +5,7 @@ import java.util.Map;
 import org.cimorelli.ctc.dao.ConferenceDao;
 import org.cimorelli.ctc.dao.ConferenceWriteupDao;
 import org.cimorelli.ctc.dao.ConferenceYearDao;
+import org.cimorelli.ctc.dao.ConferenceYearWinnerDao;
 import org.cimorelli.ctc.dao.EntrantDao;
 import org.cimorelli.ctc.dao.PickDao;
 import org.cimorelli.ctc.dao.ResultDao;
@@ -16,6 +17,7 @@ public abstract class BaseController {
 	protected ConferenceDao conferenceDao = new ConferenceDao();
 	protected ConferenceWriteupDao conferenceWriteupDao = new ConferenceWriteupDao();
 	protected ConferenceYearDao conferenceYearDao = new ConferenceYearDao();
+	protected ConferenceYearWinnerDao conferenceYearWinnerDao = new ConferenceYearWinnerDao();
 	protected PickDao pickDao = new PickDao();
 	protected ResultDao resultDao = new ResultDao();
 	protected EntrantDao entrantDao = new EntrantDao();

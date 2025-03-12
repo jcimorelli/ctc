@@ -4,6 +4,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>org.cimorelli.ctc.dbo.Conference</class>
 		<class>org.cimorelli.ctc.dbo.ConferenceYear</class>
+		<class>org.cimorelli.ctc.dbo.ConferenceYearWinner</class>
 		<class>org.cimorelli.ctc.dbo.ConferenceWriteup</class>
 		<class>org.cimorelli.ctc.dbo.Pick</class>
 		<class>org.cimorelli.ctc.dbo.Result</class>
