@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cimorelli.ctc.dbo.Entrant;
 import org.cimorelli.ctc.dbo.Pick;
 import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
@@ -33,14 +34,16 @@ public class PickEntryController extends BaseController {
 		Map<String, Object> model = new HashMap<>();
 		updateAlerts( req, model );
 
-		model.put( "conferenceOptions", conferenceDao.findAll() );
+		model.put( "conferenceOptions", conferenceDao.findAllCtcNames() );
 		model.put( "entrantOptions", entrantDao.findAll() );
 		model.put( "roundOptions", Arrays.asList( Round.values() ) );
 
 		// Convert round options to JSON and add as roundOptionsJson
 		Gson gson = new Gson();
-		String roundOptionsJson = gson.toJson(Arrays.asList(Round.values()));
-		model.put("roundOptionsJson", roundOptionsJson);
+		String conferenceOptionsJson = gson.toJson( conferenceDao.findAllCtcNames() );
+		model.put( "conferenceOptionsJson", conferenceOptionsJson );
+		String roundOptionsJson = gson.toJson( Arrays.asList( Round.values() ) );
+		model.put( "roundOptionsJson", roundOptionsJson );
 
 		return new ModelAndView( model, "pickEntry.ftl" );
 	}
@@ -48,26 +51,27 @@ public class PickEntryController extends BaseController {
 	public ModelAndView processPickEntry( Request req, Response res ) {
 
 		try {
-			int conferenceId = Integer.parseInt( req.queryParams( "conferenceId" ) );
 			int entrantId = Integer.parseInt( req.queryParams( "entrantId" ) );
+			String[] conferences = req.queryParamsValues( "conference[]" );
 			String[] rounds = req.queryParamsValues( "round[]" );
 			String[] teamNames = req.queryParamsValues( "teamName[]" );
 			String[] upsetPoints = req.queryParamsValues( "upsetPoints[]" );
 
 			// Basic validation: ensure arrays are present and have matching lengths
-			if( rounds == null || teamNames == null || upsetPoints == null ) {
+			if( rounds == null || teamNames == null || upsetPoints == null || conferences == null ) {
 				displayError( req, "No picks were submitted." );
 				res.redirect( "/pickEntry" );
 				return null;
 			}
-			if( rounds.length != teamNames.length || rounds.length != upsetPoints.length ) {
+			if( rounds.length != teamNames.length || rounds.length != upsetPoints.length || rounds.length != conferences.length ) {
 				displayError( req, "Mismatch in number of submitted rows." );
 				res.redirect( "/pickEntry" );
 				return null;
 			}
 
-			savePicks( rounds, teamNames, upsetPoints, conferenceId, entrantId );
-			displayConfirmation( req, "Picks submitted!" );
+			savePicks( conferences, rounds, teamNames, upsetPoints, entrantId );
+			Entrant entrant = entrantDao.findById( entrantId );
+			displayConfirmation( req, "Picks submitted for " + entrant.getNickname() + "!" );
 		} catch( Exception e ) {
 			displayError( req, e.getMessage() );
 			e.printStackTrace();
@@ -78,11 +82,12 @@ public class PickEntryController extends BaseController {
 		return null;
 	}
 
-	private void savePicks( String[] rounds, String[] teamNames, String[] upsetPoints, int conferenceId, int entrantId ) {
+	private void savePicks( String[] conferences, String[] rounds, String[] teamNames, String[] upsetPoints, int entrantId ) {
 
 		int poolYear = conferenceYearDao.findCurrentYear();
-		BigDecimal conferenceMultiplier = conferenceYearDao.findMultiplier( conferenceId, poolYear );
 		for( int i = 0; i < rounds.length; i++ ) {
+			int conferenceId = conferenceDao.findByCtcName( conferences[i] ).getConferenceId();
+			BigDecimal conferenceMultiplier = conferenceYearDao.findMultiplier( conferenceId, poolYear );
 			Round round = Round.valueOf( rounds[i] );
 			String teamName = teamNames[i];
 			BigDecimal upsetPts = BigDecimal.valueOf( Long.parseLong( upsetPoints[i] ) );

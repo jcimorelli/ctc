@@ -22,21 +22,22 @@ public class UploadPicksController extends BaseController {
 
 	public static void setup( FreeMarkerEngine freeMarker ) {
 
-		post( "/parsePicksExcel", UploadPicksController::parsePicksExcel );
+		UploadPicksController uploadPicksController = new UploadPicksController();
+		post( "/parsePicksExcel", uploadPicksController::parsePicksExcel );
 	}
 
-	public static Object parsePicksExcel( Request req, Response res ) {
+	public Object parsePicksExcel( Request req, Response res ) {
 		// Set multipart config for file upload processing
 		req.attribute( "org.eclipse.jetty.multipartConfig", new MultipartConfigElement( "/temp" ) );
 		List<PickRow> picks = new ArrayList<>();
 		try {
 			InputStream is = req.raw().getPart( "picksFile" ).getInputStream();
-			ExcelUtil.parsePicksSpreadsheet(picks, is);
+			ExcelUtil.parsePicksSpreadsheet( picks, is );
 			is.close();
 		} catch( Exception e ) {
 			e.printStackTrace();
 			res.status( 500 );
-			return "Error parsing Excel file.";
+			return "Upload Failed: " + e.getMessage();
 		}
 		// Return JSON using Gson (add Gson dependency if needed)
 		res.type( "application/json" );

@@ -23,7 +23,10 @@
 			<column name="conferenceId" type="INT" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false"/>
 			</column>
-			<column name="conferenceName" type="VARCHAR(100)">
+			<column name="ctcName" type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="formalName" type="VARCHAR(100)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="abbreviation" type="VARCHAR(100)">
@@ -162,37 +165,37 @@
 	</changeSet>
 
 	<changeSet id="8" author="cimorelli">
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southeastern', 'SEC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big Ten', 'B10');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big 12', 'B12');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big East', 'BEast');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Atlantic Coast', 'ACC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Atlantic 10', 'A10');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Mountain West', 'MWC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Conference USA', 'CUSA');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('West Coast', 'WCC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Missouri Valluy', 'MVC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('American Athletic', 'AAC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big West', 'BWC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big South', 'BSouth');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Ivy League', 'Ivy');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Colonial Athletic', 'CAA');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Mid-American', 'MAC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southern', 'SoCon');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Horizon League', 'Horiz');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Sun Belt', 'SunB');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Metro Atlantic Athletic', 'MAAC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southland', 'SLand');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Western Athletic', 'WAC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Summit', 'Sum');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Big Sky', 'BSky');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Ohio Valley', 'OVC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Patriot League', 'Pat');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('America East', 'AEC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Atlantic Sun', 'ASun');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Northeast', 'NEC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Mid-Eastern', 'MEAC');</sql>
-		<sql>INSERT INTO CONFERENCES (ConferenceName, Abbreviation) VALUES ('Southwestern Athletic', 'SWAC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('SEC', 'Southeastern', 'SEC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Big Ten', 'Big Ten', 'B10');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Big XII', 'Big 12', 'B12');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Big East', 'Big East', 'BEast');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('ACC', 'Atlantic Coast', 'ACC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('A-10', 'Atlantic 10', 'A10');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('M-West', 'Mountain West', 'MWC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Conf USA', 'Conference USA', 'CUSA');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('WCC', 'West Coast', 'WCC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('MVC', 'Missouri Valley', 'MVC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('American', 'American Athletic', 'AAC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Big West', 'Big West', 'BWC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Big South', 'Big South', 'BSouth');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Ivy', 'Ivy League', 'Ivy');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('CAA', 'Colonial Athletic', 'CAA');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('MAC', 'Mid-American', 'MAC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('SoCon', 'Southern', 'SoCon');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Horizon', 'Horizon League', 'Horiz');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Sun Belt', 'Sun Belt', 'SunB');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('MAAC', 'Metro Atlantic Athletic', 'MAAC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Southland', 'Southland', 'SLand');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('WAC', 'Western Athletic', 'WAC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Summit', 'Summit', 'Sum');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Big Sky', 'Big Sky', 'BSky');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('OVC', 'Ohio Valley', 'OVC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Patriot', 'Patriot League', 'Pat');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('Am East', 'America East', 'AEC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('A Sun', 'Atlantic Sun', 'ASun');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('NEC', 'Northeast', 'NEC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('MEAC', 'Mid-Eastern', 'MEAC');</sql>
+		<sql>INSERT INTO CONFERENCES (CtcName, FormalName, Abbreviation) VALUES ('SWAC', 'Southwestern Athletic', 'SWAC');</sql>
 	</changeSet>
 
 	<changeSet id="9" author="cimorelli">

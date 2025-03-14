@@ -13,7 +13,8 @@ public class Conference extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int conferenceId;
-	private String conferenceName;
+	private String ctcName;
+	private String formalName;
 	private String abbreviation;
 
 	public int getConferenceId() {
@@ -26,14 +27,24 @@ public class Conference extends BaseEntity {
 		this.conferenceId = conferenceId;
 	}
 
-	public String getConferenceName() {
+	public String getCtcName() {
 
-		return conferenceName;
+		return ctcName;
 	}
 
-	public void setConferenceName( String conferenceName ) {
+	public void setCtcName( String ctcName ) {
 
-		this.conferenceName = conferenceName;
+		this.ctcName = ctcName;
+	}
+
+	public String getFormalName() {
+
+		return formalName;
+	}
+
+	public void setFormalName( String formalName ) {
+
+		this.formalName = formalName;
 	}
 
 	public String getAbbreviation() {

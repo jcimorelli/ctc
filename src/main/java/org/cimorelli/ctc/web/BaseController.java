@@ -14,6 +14,10 @@ import spark.Request;
 
 public abstract class BaseController {
 
+	private static final String ERROR_MESSAGE = "errorMessage";
+	private static final String WARNING_MESSAGE = "warningMessage";
+	private static final String CONFIRM_MESSAGE = "confirmMessage";
+
 	protected ConferenceDao conferenceDao = new ConferenceDao();
 	protected ConferenceWriteupDao conferenceWriteupDao = new ConferenceWriteupDao();
 	protected ConferenceYearDao conferenceYearDao = new ConferenceYearDao();
@@ -24,26 +28,26 @@ public abstract class BaseController {
 
 	protected void updateAlerts( Request req, Map<String, Object> model ) {
 
-		model.put( "errorMessage", req.session().attribute( "errorMessage" ) );
-		model.put( "warningMessage", req.session().attribute( "confirmMessage" ) );
-		model.put( "confirmMessage", req.session().attribute( "confirmMessage" ) );
-		req.session().removeAttribute( "errorMessage" );
-		req.session().removeAttribute( "warningMessage" );
-		req.session().removeAttribute( "confirmMessage" );
+		model.put( ERROR_MESSAGE, req.session().attribute( ERROR_MESSAGE ) );
+		model.put( WARNING_MESSAGE, req.session().attribute( WARNING_MESSAGE ) );
+		model.put( CONFIRM_MESSAGE, req.session().attribute( CONFIRM_MESSAGE ) );
+		req.session().removeAttribute( ERROR_MESSAGE );
+		req.session().removeAttribute( WARNING_MESSAGE );
+		req.session().removeAttribute( CONFIRM_MESSAGE );
 	}
 
 	protected void displayError( Request req, String message ) {
 
-		req.session( true ).attribute( "errorMessage", message );
+		req.session( true ).attribute( ERROR_MESSAGE, message );
 	}
 
 	protected void displayWarning( Request req, String message ) {
 
-		req.session( true ).attribute( "warningMessage", message );
+		req.session( true ).attribute( WARNING_MESSAGE, message );
 	}
 
 	protected void displayConfirmation( Request req, String message ) {
 
-		req.session( true ).attribute( "confirmMessage", message );
+		req.session( true ).attribute( CONFIRM_MESSAGE, message );
 	}
 }

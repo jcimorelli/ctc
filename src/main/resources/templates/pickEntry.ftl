@@ -3,7 +3,7 @@
 
 <script>
     var roundOptions = JSON.parse("${roundOptionsJson?js_string}");
-    console.log(roundOptions);
+    var conferenceOptions = JSON.parse("${conferenceOptionsJson?js_string}");
 </script>
 
 <form action="/pickEntry" method="post">
@@ -14,16 +14,11 @@
                 <option value="${entrant.entrantId}">${entrant.nickname}</option>
             </#list>
         </select>
-        <label for="conferenceId">Conference</label>
-        <select id="conferenceId" name="conferenceId">
-            <#list conferenceOptions as conference>
-                <option value="${conference.conferenceId}">${conference.conferenceName}</option>
-            </#list>
-        </select>
     </div>
     <table id="picksTable">
         <thead>
         <tr>
+            <th>Conference</th>
             <th>Round</th>
             <th>Team Name</th>
             <th>Upset Points</th>
@@ -34,7 +29,7 @@
         <!-- Rows dynamically added by JavaScript -->
         </tbody>
     </table>
-    <button type="button" class="btn" onclick="openUploadModal()">Fill via Spreadsheet</button>
+    <button type="button" class="btn" onclick="openUploadModal()">Import Picks</button>
     <button type="button" class="btn" onclick="addRow()">Add Row</button>
     <button type="submit" class="btn">Submit</button>
 </form>
@@ -43,8 +38,8 @@
 <div id="uploadModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeUploadModal()">&times;</span>
-        <h3>Upload Your Excel Picks</h3>
-        <p>Please select an Excel file (.xls or .xlsx) in the correct format.</p>
+        <h3>Import Picks</h3>
+        <p>Please select an Excel file (.xls or .xlsx).</p>
         <form id="uploadForm" onsubmit="loadExcelPicks(event); return false;" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="excelFile">Excel File:</label>
@@ -56,7 +51,16 @@
 </div>
 
 <script>
-    // Generate HTML for round options using standard string concatenation.
+    // Generate HTML for conference and round options using standard string concatenation.
+    function generateConferenceOptions(selected) {
+        var optionsHtml = "";
+        conferenceOptions.forEach(function (opt) {
+            var isSelected = (opt === selected) ? " selected" : "";
+            optionsHtml += '<option value="' + opt + '"' + isSelected + '>' + opt + '</option>';
+        });
+        return optionsHtml;
+    }
+
     function generateRoundOptions(selected) {
         var optionsHtml = "";
         roundOptions.forEach(function (opt) {
@@ -67,8 +71,9 @@
     }
 
     // Adds a new row to the picks table. If parameters are provided, prefill them.
-    function addRow(round, teamName, upsetPoints) {
+    function addRow(conference, round, teamName, upsetPoints) {
         if (arguments.length === 0) {
+            conference = "";
             round = "";
             teamName = "";
             upsetPoints = 0;
@@ -76,6 +81,7 @@
         var tableBody = document.getElementById("picksTableBody");
         var newRow = document.createElement("tr");
         newRow.innerHTML =
+            '<td><select name="conference[]">' + generateConferenceOptions(conference) + '</select></td>' +
             '<td><select name="round[]">' + generateRoundOptions(round) + '</select></td>' +
             '<td><input type="text" name="teamName[]" value="' + teamName + '" required></td>' +
             '<td><input type="number" name="upsetPoints[]" value="' + upsetPoints + '" min="0" required></td>' +
@@ -116,18 +122,18 @@
                 body: formData
             });
             if (!response.ok) {
-                ValidateUtil.fail("Failed to parse Excel file.");
+                alert("Upload Error: " + response.statusText);
             }
             var data = await response.json();
             // Expected data: array of objects with properties: round, teamName, upsetPoints.
             document.getElementById("picksTableBody").innerHTML = "";
             data.forEach(function (pick) {
-                addRow(pick.round, pick.teamName, pick.upsetPoints);
+                addRow(pick.conference, pick.round, pick.teamName, pick.upsetPoints);
             });
             closeUploadModal();
         } catch (err) {
             console.error(err);
-            alert("Error uploading or parsing file: " + err.message);
+            alert("Upload Error: " + err.message);
         }
     }
 </script>

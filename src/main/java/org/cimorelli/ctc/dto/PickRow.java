@@ -1,20 +1,30 @@
 package org.cimorelli.ctc.dto;
 
+import java.math.BigDecimal;
+
 public class PickRow {
 
+	private String conference;
 	private String round;
 	private String teamName;
-	private int upsetPoints;
+	private BigDecimal upsetPoints;
 
-	public PickRow() {
+	public PickRow( String conference, String round, String teamName, BigDecimal upsetPoints ) {
 
-	}
-
-	public PickRow( String round, String teamName, int upsetPoints ) {
-
+		this.conference = conference;
 		this.round = round;
 		this.teamName = teamName;
 		this.upsetPoints = upsetPoints;
+	}
+
+	public String getConference() {
+
+		return conference;
+	}
+
+	public void setConference( String conference ) {
+
+		this.conference = conference;
 	}
 
 	public String getRound() {
@@ -27,23 +37,8 @@ public class PickRow {
 		return teamName;
 	}
 
-	public int getUpsetPoints() {
+	public BigDecimal getUpsetPoints() {
 
 		return upsetPoints;
-	}
-
-	public void setRound( String round ) {
-
-		this.round = round;
-	}
-
-	public void setTeamName( String teamName ) {
-
-		this.teamName = teamName;
-	}
-
-	public void setUpsetPoints( int upsetPoints ) {
-
-		this.upsetPoints = upsetPoints;
 	}
 }

@@ -11,8 +11,8 @@
     </div>
 </#if>
 
-<#if confirmationMessage??>
+<#if confirmMessage??>
     <div class="alert alert-confirmation">
-        ${confirmationMessage}
+        ${confirmMessage}
     </div>
 </#if>
