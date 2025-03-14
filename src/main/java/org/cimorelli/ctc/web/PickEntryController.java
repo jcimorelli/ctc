@@ -12,6 +12,8 @@ import org.cimorelli.ctc.dbo.Pick;
 import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
 
+import com.google.gson.Gson;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -34,6 +36,12 @@ public class PickEntryController extends BaseController {
 		model.put( "conferenceOptions", conferenceDao.findAll() );
 		model.put( "entrantOptions", entrantDao.findAll() );
 		model.put( "roundOptions", Arrays.asList( Round.values() ) );
+
+		// Convert round options to JSON and add as roundOptionsJson
+		Gson gson = new Gson();
+		String roundOptionsJson = gson.toJson(Arrays.asList(Round.values()));
+		model.put("roundOptionsJson", roundOptionsJson);
+
 		return new ModelAndView( model, "pickEntry.ftl" );
 	}
 

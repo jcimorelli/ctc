@@ -49,5 +49,6 @@ public class WebApp {
 		ConferenceWriteupsController.setup( freeMarker );
 		PicksController.setup( freeMarker );
 		ResultEntryController.setup( freeMarker );
+		UploadPicksController.setup( freeMarker );
 	}
 }
