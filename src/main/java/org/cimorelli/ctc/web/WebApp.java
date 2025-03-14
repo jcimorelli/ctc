@@ -50,5 +50,6 @@ public class WebApp {
 		PicksController.setup( freeMarker );
 		ResultEntryController.setup( freeMarker );
 		UploadPicksController.setup( freeMarker );
+		ResultsController.setup( freeMarker );
 	}
 }

@@ -42,6 +42,7 @@ public class ResultEntryController extends BaseController {
 
 		model.put( "conferenceOptions", conferenceDao.findAll() );
 		model.put( "roundOptions", Arrays.asList( Round.values() ) );
+		model.put( "today", LocalDate.now().toString() );
 		return new ModelAndView( model, "resultEntry.ftl" );
 	}
 

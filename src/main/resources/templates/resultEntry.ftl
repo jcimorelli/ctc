@@ -51,7 +51,7 @@
                         <input type="text" name="losingTeamName[]" required>
                     </td>
                     <td>
-                        <input type="date" id="gameDate" name="gameDate[]" required>
+                        <input type="date" id="gameDate" name="gameDate[]" required value="${today}">
                     </td>
                     <td>
                         <button type="button" class="btn" onclick="removeRow(this)">Remove</button>
