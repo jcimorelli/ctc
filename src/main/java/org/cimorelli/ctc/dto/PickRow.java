@@ -6,6 +6,10 @@ public class PickRow {
 	private String teamName;
 	private int upsetPoints;
 
+	public PickRow() {
+
+	}
+
 	public PickRow( String round, String teamName, int upsetPoints ) {
 
 		this.round = round;
@@ -26,5 +30,20 @@ public class PickRow {
 	public int getUpsetPoints() {
 
 		return upsetPoints;
+	}
+
+	public void setRound( String round ) {
+
+		this.round = round;
+	}
+
+	public void setTeamName( String teamName ) {
+
+		this.teamName = teamName;
+	}
+
+	public void setUpsetPoints( int upsetPoints ) {
+
+		this.upsetPoints = upsetPoints;
 	}
 }

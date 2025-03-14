@@ -59,7 +59,7 @@
     // Generate HTML for round options using standard string concatenation.
     function generateRoundOptions(selected) {
         var optionsHtml = "";
-        roundOptions.forEach(function(opt) {
+        roundOptions.forEach(function (opt) {
             var isSelected = (opt === selected) ? " selected" : "";
             optionsHtml += '<option value="' + opt + '"' + isSelected + '>' + opt + '</option>';
         });
@@ -92,6 +92,7 @@
     function openUploadModal() {
         document.getElementById("uploadModal").style.display = "block";
     }
+
     // Close the modal
     function closeUploadModal() {
         document.getElementById("uploadModal").style.display = "none";
@@ -115,12 +116,12 @@
                 body: formData
             });
             if (!response.ok) {
-                throw new Error("Failed to parse Excel file.");
+                ValidateUtil.fail("Failed to parse Excel file.");
             }
             var data = await response.json();
             // Expected data: array of objects with properties: round, teamName, upsetPoints.
             document.getElementById("picksTableBody").innerHTML = "";
-            data.forEach(function(pick) {
+            data.forEach(function (pick) {
                 addRow(pick.round, pick.teamName, pick.upsetPoints);
             });
             closeUploadModal();

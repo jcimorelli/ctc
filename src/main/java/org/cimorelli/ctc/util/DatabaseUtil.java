@@ -14,7 +14,7 @@ import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
-public class DatabaseUtil {
+public abstract class DatabaseUtil {
 
 	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory( "ctcPU" );
 
@@ -35,7 +35,7 @@ public class DatabaseUtil {
 			Liquibase liquibase = new Liquibase( "liquibase_updates.xml", new ClassLoaderResourceAccessor(), database );
 			liquibase.update( ( String )null );
 		} catch( LiquibaseException e ) {
-			throw new RuntimeException( e );
+			ValidateUtil.fail( e );
 		} finally {
 			closeConnection( connection );
 			em.close();

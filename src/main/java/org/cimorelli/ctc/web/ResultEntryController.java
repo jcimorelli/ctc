@@ -20,6 +20,7 @@ import org.cimorelli.ctc.dbo.Result;
 import org.cimorelli.ctc.dto.LeaderboardRow;
 import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
+import org.cimorelli.ctc.util.MathUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -161,7 +162,7 @@ public class ResultEntryController extends BaseController {
 			BigDecimal points = calc.getTotalPoints();
 			if( points.equals( winningTotal ) ) {
 				winnerIds.add( entrant.getEntrantId() );
-			} else if( points.compareTo( winningTotal ) > 0 ) {
+			} else if( MathUtil.greaterThan( points, winningTotal ) ) {
 				winningTotal = points;
 				winnerIds.clear();
 				winnerIds.add( entrant.getEntrantId() );

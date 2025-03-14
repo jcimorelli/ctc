@@ -10,6 +10,7 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.Part;
 
 import org.cimorelli.ctc.dto.PickRow;
+import org.cimorelli.ctc.util.ExcelUtil;
 
 import com.google.gson.Gson;
 
@@ -29,14 +30,8 @@ public class UploadPicksController extends BaseController {
 		req.attribute( "org.eclipse.jetty.multipartConfig", new MultipartConfigElement( "/temp" ) );
 		List<PickRow> picks = new ArrayList<>();
 		try {
-			Part filePart = req.raw().getPart( "picksFile" );
-			InputStream is = filePart.getInputStream();
-
-			// TODO: Use Apache POI to parse the Excel file from 'is'
-			// For this stub, we'll simulate parsing by adding dummy data.
-			picks.add( new PickRow( "Round 1", "Team A", 2 ) );
-			picks.add( new PickRow( "Round 2", "Team B", 1 ) );
-
+			InputStream is = req.raw().getPart( "picksFile" ).getInputStream();
+			ExcelUtil.parsePicksSpreadsheet(picks, is);
 			is.close();
 		} catch( Exception e ) {
 			e.printStackTrace();
