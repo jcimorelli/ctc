@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cimorelli.ctc.dbo.Conference;
 import org.cimorelli.ctc.dbo.Entrant;
 import org.cimorelli.ctc.dbo.Pick;
 import org.cimorelli.ctc.enums.Round;
@@ -36,8 +37,10 @@ public class PicksController extends BaseController {
 		// Retrieve filter parameters
 		String entrantIdParam = req.queryParams( "entrantId" );
 		String conferenceIdParam = req.queryParams( "conferenceId" );
+		String teamNameParam = req.queryParams( "teamName" );
 		model.put( "entrantId", entrantIdParam );
 		model.put( "conferenceId", conferenceIdParam );
+		model.put( "teamName", teamNameParam );
 
 		Integer entrantId = null;
 		Integer conferenceId = null;
@@ -56,13 +59,14 @@ public class PicksController extends BaseController {
 		List<Pick> picks = new ArrayList<>();
 		if( entrantId != null && conferenceId != null ) {
 			Integer currentPoolYear = conferenceYearDao.findCurrentYear();
-			picks = pickDao.findByEntrantAndConferenceAndYear( entrantId, conferenceId, currentPoolYear );
+			picks = pickDao.findByFilters( entrantId, conferenceId, currentPoolYear, teamNameParam );
 		}
 		model.put( "picks", picks );
 
 		// Populate the dropdowns for filtering.
 		model.put( "entrantOptions", entrantDao.findAll() );
 		model.put( "conferenceOptions", conferenceDao.findAll() );
+		model.put( "teamOptions", pickDao.findTeamsByYear( conferenceYearDao.findCurrentYear() ) );
 
 		// Build a map from entrantId to entrant nickname.
 		Map<String, String> entrantNames = new HashMap<>();
@@ -70,6 +74,13 @@ public class PicksController extends BaseController {
 			entrantNames.put( String.valueOf( entrant.getEntrantId() ), entrant.getNickname() );
 		}
 		model.put( "entrantNames", entrantNames );
+
+		// Build a map from entrantId to entrant nickname.
+		Map<String, String> conferenceNames = new HashMap<>();
+		for( Conference conference : conferenceDao.findAll() ) {
+			conferenceNames.put( String.valueOf( conference.getConferenceId() ), conference.getCtcName() );
+		}
+		model.put( "conferenceNames", conferenceNames );
 
 		// Also add the JSON string for round options
 		Gson gson = new Gson();

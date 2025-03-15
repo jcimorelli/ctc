@@ -23,6 +23,14 @@
                     </option>
                 </#list>
             </select>
+
+            <label for="teamName">Team:</label>
+            <select id="teamName" name="teamName">
+                <option value="All Teams">-- All Teams --</option>
+                <#list teamOptions as option>
+                    <option value="${option}" <#if (teamName?? && teamName == option)>selected</#if>>${option}</option>
+                </#list>
+            </select>
         </div>
         <button type="submit" class="btn">Show</button>
     </form>
@@ -32,22 +40,26 @@
     <thead>
     <tr>
         <th>Entrant</th>
+        <th>Conference</th>
         <th>Round</th>
-        <th>Team Name</th>
+        <th>Team</th>
+        <th>Round Points</th>
         <th>Upset Points</th>
+        <th>Total Points</th>
         <th>Result</th>
-        <th>Submitted Time</th>
     </tr>
     </thead>
     <tbody>
     <#list picks as pick>
         <tr class="<#if pick.result?has_content && pick.result == 'CORRECT'>correct<#elseif pick.result?has_content && pick.result == 'INCORRECT'>incorrect</#if>">
             <td>${entrantNames[pick.entrantId?string]}</td>
+            <td>${conferenceNames[pick.conferenceId?string]}</td>
             <td>${pick.round}</td>
             <td>${pick.teamName}</td>
-            <td>${pick.upsetPoints}</td>
+            <td>${pick.weightedRoundPoints}</td>
+            <td>${pick.weightedUpsetPoints}</td>
+            <td>${pick.totalPotentialPoints}</td>
             <td>${pick.result}</td>
-            <td>${pick.submittedTime}</td>
         </tr>
     </#list>
     </tbody>
