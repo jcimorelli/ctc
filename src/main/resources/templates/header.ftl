@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>${pageTitle!"CTC"}</title>
+    <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
