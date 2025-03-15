@@ -243,3 +243,42 @@ th.sorted-desc::after {
 	content: " ▼";
 	font-size: 0.8em;
 }
+
+/* Leaderboard/Picks table styling */
+#picksViewTable {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+#picksViewTable th, #picksViewTable td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: left;
+}
+
+#picksViewTable th {
+	background-color: #eee;
+}
+
+/* Style for correct picks */
+tr.correct {
+	background-color: #dff0d8;  /* light green */
+}
+
+/* Style for incorrect picks */
+tr.incorrect {
+	background-color: #f2dede;  /* light red */
+	text-decoration: line-through;
+}
+
+/* Filter section */
+.filter-section {
+	margin-bottom: 20px;
+}
+
+.filter-section .form-group {
+	display: inline-block;
+	margin-right: 20px;
+}
+
