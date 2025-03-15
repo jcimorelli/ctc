@@ -21,6 +21,7 @@ import org.cimorelli.ctc.dto.LeaderboardRow;
 import org.cimorelli.ctc.enums.PickResult;
 import org.cimorelli.ctc.enums.Round;
 import org.cimorelli.ctc.util.MathUtil;
+import org.cimorelli.ctc.util.ValidateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -121,11 +122,16 @@ public class ResultEntryController extends BaseController {
 		String losingTeamName = result.getLosingTeamName();
 
 		// Mark all correct picks
+		BigDecimal pointsCheck = null;
 		for( Pick pick : pickDao.findByTeamAndYear( winningTeamName, poolYear ) ) {
 			if( pick.getRound() == round ) {
 				pick.setResultId( result.getResultId() );
 				pick.setResult( PickResult.CORRECT );
 				pickDao.update( pick );
+
+				// Check if the points are consistent across all matching picks
+				ValidateUtil.check( pointsCheck != null && !pointsCheck.equals( pick.getTotalPotentialPoints() ), "Inconsistent points for picks." );
+				pointsCheck = pick.getTotalPotentialPoints();
 			}
 		}
 
