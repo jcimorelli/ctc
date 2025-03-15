@@ -10,7 +10,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="/home"><h1>CTC</h1></a></li>
+            <li><a href="/leaderboard"><h1>CTC</h1></a></li>
             <!--<li><a href="/conferenceWriteups">Conference Write-ups</a></li>-->
             <li><a href="/leaderboard">Leaderboard</a></li>
             <li><a href="/picks">Picks</a></li>

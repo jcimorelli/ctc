@@ -15,7 +15,7 @@ public class HomePageController extends BaseController {
 	public static void setup( FreeMarkerEngine freeMarker ) {
 
 		HomePageController homePageController = new HomePageController();
-		get( "/", homePageController::redirectToHome, freeMarker );
+		//get( "/", homePageController::redirectToHome, freeMarker );
 		get( "/home", homePageController::showHomePage, freeMarker );
 	}
 

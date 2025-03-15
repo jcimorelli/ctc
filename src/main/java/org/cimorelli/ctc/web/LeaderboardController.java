@@ -19,8 +19,15 @@ public class LeaderboardController extends BaseController {
 
 	public static void setup( FreeMarkerEngine freeMarker ) {
 
-		LeaderboardController controller = new LeaderboardController();
-		get( "/leaderboard", controller::showLeaderboard, freeMarker );
+		LeaderboardController leaderboardController = new LeaderboardController();
+		get( "/", leaderboardController::redirectToLeaderboard, freeMarker );
+		get( "/leaderboard", leaderboardController::showLeaderboard, freeMarker );
+	}
+
+	public ModelAndView redirectToLeaderboard( Request req, Response res ) {
+
+		res.redirect( "/leaderboard" );
+		return null;
 	}
 
 	public ModelAndView showLeaderboard( Request req, Response res ) {

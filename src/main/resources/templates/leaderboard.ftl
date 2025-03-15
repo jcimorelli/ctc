@@ -1,5 +1,5 @@
 <#include "header.ftl">
-<h2>Leaderboard</h2>
+<h2>CTC Leaderboard</h2>
 <table id="leaderboardTable">
     <thead>
     <tr>
