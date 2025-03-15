@@ -233,3 +233,13 @@ nav li a:hover {
 	color: #000;
 	text-decoration: none;
 }
+
+/* Add an arrow after the sorted header cell */
+th.sorted-asc::after {
+	content: " ▲";
+	font-size: 0.8em;
+}
+th.sorted-desc::after {
+	content: " ▼";
+	font-size: 0.8em;
+}

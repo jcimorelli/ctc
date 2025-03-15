@@ -5,7 +5,7 @@
         <label for="conferenceId">Conference</label>
         <select id="conferenceId" name="conferenceId">
             <#list conferenceOptions as conference>
-                <option value="${conference.conferenceId}">${conference.conferenceName}</option>
+                <option value="${conference.conferenceId}">${conference.ctcName}</option>
             </#list>
         </select>
     </div>
