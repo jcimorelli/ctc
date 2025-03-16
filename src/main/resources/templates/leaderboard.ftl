@@ -1,5 +1,35 @@
 <#include "header.ftl">
 <h2>CTC Leaderboard</h2>
+
+<div class="filter-section">
+    <form action="/leaderboard" method="get">
+        <div class="combo-group">
+            <label for="conferenceId">Conference:</label>
+            <select id="conferenceId" name="conferenceId">
+                <option value="0">-- All Conferences --</option>
+                <#list conferenceOptions as conference>
+                    <option value="${conference.conferenceId}" <#if (conferenceId?? && conferenceId?number == conference.conferenceId)>selected</#if>>
+                        ${conference.ctcName}
+                    </option>
+                </#list>
+            </select>
+        </div>
+        <div class="combo-group">
+            <label for="gameDay">Game Day:</label>
+            <select id="gameDay" name="gameDay">
+                <option value="">-- All Days --</option>
+                <#list gameDays as day>
+                    <option value="${day}" <#if (gameDay?? && gameDay == day)>selected</#if>>${day}</option>
+                </#list>
+            </select>
+        </div>
+        <div class="combo-group">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn">Filter</button>
+        </div>
+    </form>
+</div>
+
 <table id="leaderboardTable">
     <thead>
     <tr>

@@ -59,7 +59,7 @@ public class PicksController extends BaseController {
 		List<Pick> picks = new ArrayList<>();
 		if( entrantId != null && conferenceId != null ) {
 			Integer currentPoolYear = conferenceYearDao.findCurrentYear();
-			picks = pickDao.findByFilters( entrantId, conferenceId, currentPoolYear, teamNameParam );
+			picks = pickDao.findByFilters( entrantId, conferenceId, currentPoolYear, teamNameParam, null );
 		}
 		model.put( "picks", picks );
 

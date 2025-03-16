@@ -1,5 +1,6 @@
 package org.cimorelli.ctc.dao;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,9 @@ public class EntrantDao extends BaseDao {
 
 	public List<Entrant> findById( List<Integer> idList ) {
 
+		if( idList == null || idList.isEmpty() ) {
+			return new ArrayList<>();
+		}
 		Map<String, Object> params = new HashMap<>();
 		params.put( "idList", idList );
 		return getResultList( "SELECT e FROM Entrant e WHERE e.entrantId IN :idList", Entrant.class, params );

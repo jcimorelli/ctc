@@ -318,3 +318,21 @@ td.strikethrough {
 	opacity: 1;
 }
 
+.filter-section form {
+	/* Ensures the combos flow on one line (wrapping if needed) */
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 20px; /* spacing between combos */
+}
+
+.filter-section .combo-group {
+	display: flex;
+	flex-direction: column; /* label above the select */
+	margin-right: 10px; /* spacing between each combo group */
+}
+
+.filter-section .combo-group label {
+	font-weight: 500; /* optional styling */
+	margin-bottom: 3px; /* small spacing under label */
+}

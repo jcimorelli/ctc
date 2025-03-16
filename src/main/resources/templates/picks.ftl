@@ -3,7 +3,7 @@
 
 <div class="filter-section">
     <form action="/picks" method="get">
-        <div class="form-group">
+        <div class="combo-group">
             <label for="entrantId">Entrant:</label>
             <select id="entrantId" name="entrantId">
                 <option value="0">-- All Entrants --</option>
@@ -13,7 +13,8 @@
                     </option>
                 </#list>
             </select>
-
+        </div>
+        <div class="combo-group">
             <label for="conferenceId">Conference:</label>
             <select id="conferenceId" name="conferenceId">
                 <option value="0">-- All Conferences --</option>
@@ -23,7 +24,8 @@
                     </option>
                 </#list>
             </select>
-
+        </div>
+        <div class="combo-group">
             <label for="teamName">Team:</label>
             <select id="teamName" name="teamName">
                 <option value="">-- All Teams --</option>
@@ -32,7 +34,10 @@
                 </#list>
             </select>
         </div>
-        <button type="submit" class="btn">Show</button>
+        <div class="combo-group">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn">Filter</button>
+        </div>
     </form>
 </div>
 

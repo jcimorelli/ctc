@@ -1,5 +1,6 @@
 package org.cimorelli.ctc.dao;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +51,15 @@ public class PickDao extends BaseDao {
 		return teamNames.stream().sorted().collect( Collectors.toList() );
 	}
 
-	public List<Pick> findByFilters( int entrantId, int conferenceId, int poolYear, String teamName ) {
+	public List<Pick> findByFilters( int entrantId, int conferenceId, int poolYear, String teamName, LocalDate gameDate ) {
 
 		StringBuilder sb = new StringBuilder();
 		Map<String, Object> params = new HashMap<>();
-		sb.append( "SELECT p FROM Pick p WHERE p.poolYear = :poolYear " );
+		sb.append( "SELECT p FROM Pick p " );
+		if( gameDate != null ) {
+			sb.append( "JOIN Result r ON p.resultId = r.resultId " );
+		}
+		sb.append( "WHERE p.poolYear = :poolYear " );
 		params.put( "poolYear", poolYear );
 		if( entrantId > 0 ) {
 			sb.append( "AND p.entrantId = :entrantId " );
@@ -68,6 +73,10 @@ public class PickDao extends BaseDao {
 			sb.append( "AND p.teamName = :teamName " );
 			params.put( "teamName", teamName );
 		}
+		if( gameDate != null ) {
+			sb.append( "AND r.gameDate = :gameDate " );
+			params.put( "gameDate", gameDate );
+		}
 		return getResultList( sb.toString(), Pick.class, params );
 	}
 
@@ -76,5 +85,14 @@ public class PickDao extends BaseDao {
 		Map<String, Object> params = new HashMap<>();
 		params.put( "resultId", resultId );
 		return getResultList( "SELECT p FROM Pick p WHERE p.resultId = :resultId", Pick.class, params );
+	}
+
+	public List<String> findDistinctGameDaysByYear( int currentPoolYear ) {
+
+		Map<String, Object> params = new HashMap<>();
+		params.put( "poolYear", currentPoolYear );
+		return getResultList( "SELECT DISTINCT r.gameDate FROM Pick p " +
+							  "JOIN Result r ON p.resultId = r.resultId " +
+							  "WHERE p.poolYear = :poolYear", String.class, params );
 	}
 }
