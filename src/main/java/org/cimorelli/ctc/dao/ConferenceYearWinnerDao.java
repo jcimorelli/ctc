@@ -1,25 +1,17 @@
 package org.cimorelli.ctc.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.cimorelli.ctc.dbo.ConferenceYearWinner;
 
 public class ConferenceYearWinnerDao extends BaseDao {
 
-	public ConferenceYearWinnerDao() {
-
-		init();
-	}
-
-	public ConferenceYearWinner findById( int id ) {
-
-		return em.find( ConferenceYearWinner.class, id );
-	}
-
 	public List<ConferenceYearWinner> findByConferenceYear( int conferenceYearId ) {
 
-		return em.createQuery( "SELECT c FROM ConferenceYearWinner c WHERE c.conferenceYearId = :conferenceYearId", ConferenceYearWinner.class )
-			.setParameter( "conferenceYearId", conferenceYearId )
-			.getResultList();
+		Map<String, Object> params = new HashMap<>();
+		params.put( "conferenceYearId", conferenceYearId );
+		return getResultList( "SELECT c FROM ConferenceYearWinner c WHERE c.conferenceYearId = :conferenceYearId", ConferenceYearWinner.class, params );
 	}
 }

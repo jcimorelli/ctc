@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.cimorelli.ctc.dbo.Conference;
 import org.cimorelli.ctc.dbo.Entrant;
 import org.cimorelli.ctc.dbo.Pick;
 import org.cimorelli.ctc.dbo.Result;
@@ -48,7 +49,7 @@ public class ResultsController extends BaseController {
 		for( Result result : results ) {
 			GameResultRow resultRow = new GameResultRow();
 			resultRow.setGameDate( result.getGameDate() );
-			resultRow.setConference( conferenceDao.findById( result.getConferenceId() ).getCtcName() );
+			resultRow.setConference( conferenceDao.findById( result.getConferenceId(), Conference.class ).getCtcName() );
 			resultRow.setRound( result.getRound() );
 			resultRow.setWinningTeam( result.getWinningTeamName() );
 			resultRow.setLosingTeam( result.getLosingTeamName() );

@@ -1,46 +1,32 @@
 package org.cimorelli.ctc.dao;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.persistence.NoResultException;
 
 import org.cimorelli.ctc.dbo.Entrant;
 
 public class EntrantDao extends BaseDao {
 
-	public EntrantDao() {
-
-		init();
-	}
-
-	public Entrant findById( int id ) {
-
-		return em.find( Entrant.class, id );
-	}
-
 	public List<Entrant> findById( List<Integer> idList ) {
 
-		return em.createQuery( "SELECT e FROM Entrant e WHERE e.entrantId IN :idList", Entrant.class )
-			.setParameter( "idList", idList )
-			.getResultList();
+		Map<String, Object> params = new HashMap<>();
+		params.put( "idList", idList );
+		return getResultList( "SELECT e FROM Entrant e WHERE e.entrantId IN :idList", Entrant.class, params );
 	}
 
 	public Entrant findByNickname( String nickname ) {
 
-		try {
-			return em.createQuery( "SELECT e FROM Entrant e WHERE e.nickname = :nickname", Entrant.class )
-				.setParameter( "nickname", nickname )
-				.getSingleResult();
-		} catch( NoResultException e ) {
-			return null;
-		}
+		Map<String, Object> params = new HashMap<>();
+		params.put( "nickname", nickname );
+		return getSingleResult( "SELECT e FROM Entrant e WHERE e.nickname = :nickname", Entrant.class, params );
 	}
 
 	public List<Entrant> findAll() {
 
-		List<Entrant> entrants = em.createQuery( "SELECT e FROM Entrant e", Entrant.class ).getResultList();
+		List<Entrant> entrants = getResultList( "SELECT e FROM Entrant e", Entrant.class );
 		return entrants.stream()
 			.sorted( Comparator.comparing( Entrant::getNickname ) )
 			.collect( Collectors.toList() );
@@ -48,13 +34,13 @@ public class EntrantDao extends BaseDao {
 
 	public List<Entrant> findWinnersByConferenceAndYear( int conferenceId, int poolYear ) {
 
-		return em.createQuery( "SELECT e FROM Entrant e " +
-							   "JOIN ConferenceYearWinner cyw ON cyw.entrantId = e.entrantId " +
-							   "JOIN ConferenceYear cy ON cy.conferenceYearId = cyw.conferenceYearId " +
-							   "WHERE cy.conferenceId = :conferenceId AND cy.poolYear = :poolYear", Entrant.class )
-			.setParameter( "conferenceId", conferenceId )
-			.setParameter( "poolYear", poolYear )
-			.getResultList();
+		Map<String, Object> params = new HashMap<>();
+		params.put( "conferenceId", conferenceId );
+		params.put( "poolYear", poolYear );
+		return getResultList( "SELECT e FROM Entrant e " +
+							  "JOIN ConferenceYearWinner cyw ON cyw.entrantId = e.entrantId " +
+							  "JOIN ConferenceYear cy ON cy.conferenceYearId = cyw.conferenceYearId " +
+							  "WHERE cy.conferenceId = :conferenceId AND cy.poolYear = :poolYear", Entrant.class, params );
 	}
 
 }

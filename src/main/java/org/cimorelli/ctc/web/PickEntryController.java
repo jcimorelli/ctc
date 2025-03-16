@@ -70,7 +70,7 @@ public class PickEntryController extends BaseController {
 			}
 
 			savePicks( conferences, rounds, teamNames, upsetPoints, entrantId );
-			Entrant entrant = entrantDao.findById( entrantId );
+			Entrant entrant = entrantDao.findById( entrantId, Entrant.class );
 			displayConfirmation( req, "Picks submitted for " + entrant.getNickname() + "!" );
 		} catch( Exception e ) {
 			displayError( req, e.getMessage() );

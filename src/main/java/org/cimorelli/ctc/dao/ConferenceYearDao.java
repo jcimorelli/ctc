@@ -1,49 +1,31 @@
 package org.cimorelli.ctc.dao;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import java.util.Map;
 
 import org.cimorelli.ctc.dbo.ConferenceYear;
 
 public class ConferenceYearDao extends BaseDao {
 
-	public ConferenceYearDao() {
-
-		init();
-	}
-
-	public ConferenceYear findById( int id ) {
-
-		return em.find( ConferenceYear.class, id );
-	}
-
 	public Integer findCurrentYear() {
 
-		TypedQuery<Integer> q = em.createQuery( "SELECT MAX(cy.poolYear) FROM ConferenceYear cy", Integer.class );
-		return q.getSingleResult();
+		return getSingleResult( "SELECT MAX(cy.poolYear) FROM ConferenceYear cy", Integer.class );
 	}
 
 	public List<ConferenceYear> findAll() {
 
-		return em.createQuery( "SELECT cy FROM ConferenceYear cy", ConferenceYear.class )
-			.getResultList();
+		return getResultList( "SELECT cy FROM ConferenceYear cy", ConferenceYear.class );
 	}
 
 	public ConferenceYear findByConferenceIdAndYear( int conferenceId, int poolYear ) {
 
-		try {
-			return em.createQuery(
-					"SELECT cy FROM ConferenceYear cy WHERE cy.conferenceId = :conferenceId AND cy.poolYear = :poolYear",
-					ConferenceYear.class )
-				.setParameter( "conferenceId", conferenceId )
-				.setParameter( "poolYear", poolYear )
-				.getSingleResult();
-		} catch( NoResultException e ) {
-			return null;
-		}
+		Map<String, Object> params = new HashMap<>();
+		params.put( "conferenceId", conferenceId );
+		params.put( "poolYear", poolYear );
+		return getSingleResult( "SELECT cy FROM ConferenceYear cy WHERE cy.conferenceId = :conferenceId AND cy.poolYear = :poolYear",
+								ConferenceYear.class, params );
 	}
 
 	public BigDecimal findMultiplier( int conferenceId ) {
