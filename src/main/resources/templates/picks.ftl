@@ -51,14 +51,14 @@
     </thead>
     <tbody>
     <#list picks as pick>
-        <tr class="<#if pick.result?has_content && pick.result == 'CORRECT'>correct<#elseif pick.result?has_content && pick.result == 'INCORRECT'>incorrect</#if>">
+        <tr class="<#if pick.result?has_content && pick.result == 'CORRECT'>correct<#elseif pick.result?has_content && pick.result == 'WRONG'>incorrect</#if>">
             <td>${entrantNames[pick.entrantId?string]}</td>
             <td>${conferenceNames[pick.conferenceId?string]}</td>
             <td>${pick.round}</td>
             <td>${pick.teamName}</td>
-            <td>${pick.weightedRoundPoints}</td>
-            <td>${pick.weightedUpsetPoints}</td>
-            <td>${pick.totalPotentialPoints}</td>
+            <td class="<#if pick.result?has_content && pick.result == 'WRONG'>strikethrough</#if>">${pick.weightedRoundPoints}</td>
+            <td class="<#if pick.result?has_content && pick.result == 'WRONG'>strikethrough</#if>">${pick.weightedUpsetPoints}</td>
+            <td class="<#if pick.result?has_content && pick.result == 'WRONG'>strikethrough</#if>">${pick.totalPotentialPoints}</td>
             <td>${pick.result}</td>
         </tr>
     </#list>

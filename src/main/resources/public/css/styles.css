@@ -269,6 +269,9 @@ tr.correct {
 /* Style for incorrect picks */
 tr.incorrect {
 	background-color: #f2dede;  /* light red */
+}
+
+td.strikethrough {
 	text-decoration: line-through;
 }
 
