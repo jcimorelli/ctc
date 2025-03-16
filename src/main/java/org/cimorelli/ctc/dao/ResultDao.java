@@ -25,4 +25,13 @@ public class ResultDao extends BaseDao {
 			.setParameter( "poolYear", poolYear )
 			.getResultList();
 	}
+
+	public List<Result> findByYear( int poolYear ) {
+
+		return em.createQuery(
+				"SELECT r FROM Result r WHERE r.poolYear = :poolYear ORDER BY r.submittedTime DESC",
+				Result.class )
+			.setParameter( "poolYear", poolYear )
+			.getResultList();
+	}
 }

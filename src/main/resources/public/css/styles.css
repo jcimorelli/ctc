@@ -282,3 +282,36 @@ tr.incorrect {
 	margin-right: 20px;
 }
 
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	cursor: help;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+	visibility: hidden;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	padding: 5px 8px;
+	border-radius: 4px;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%; /* Position above the element */
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: nowrap;
+
+	/* Show immediately without any transition delay */
+	opacity: 0;
+	transition: opacity 0s;
+}
+
+/* Show the tooltip text when hovering */
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}
+

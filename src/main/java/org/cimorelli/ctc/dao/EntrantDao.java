@@ -20,6 +20,13 @@ public class EntrantDao extends BaseDao {
 		return em.find( Entrant.class, id );
 	}
 
+	public List<Entrant> findById( List<Integer> idList ) {
+
+		return em.createQuery( "SELECT e FROM Entrant e WHERE e.entrantId IN :idList", Entrant.class )
+			.setParameter( "idList", idList )
+			.getResultList();
+	}
+
 	public Entrant findByNickname( String nickname ) {
 
 		try {

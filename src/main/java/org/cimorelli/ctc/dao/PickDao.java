@@ -1,12 +1,10 @@
 package org.cimorelli.ctc.dao;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.TypedQuery;
 
-import org.cimorelli.ctc.dbo.Conference;
 import org.cimorelli.ctc.dbo.Pick;
 
 public class PickDao extends BaseDao {
@@ -87,5 +85,12 @@ public class PickDao extends BaseDao {
 		}
 		query.setParameter( "poolYear", poolYear );
 		return query.getResultList();
+	}
+
+	public List<Pick> findByResult( int resultId ) {
+
+		return em.createQuery( "SELECT p FROM Pick p WHERE p.resultId = :resultId", Pick.class )
+			.setParameter( "resultId", resultId )
+			.getResultList();
 	}
 }

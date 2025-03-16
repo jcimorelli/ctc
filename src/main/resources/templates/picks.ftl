@@ -39,14 +39,14 @@
 <table id="picksViewTable">
     <thead>
     <tr>
-        <th onclick="sortPicksTable(0,'picksViewTable')">Entrant</th>
-        <th onclick="sortPicksTable(1,'picksViewTable')">Conference</th>
-        <th onclick="sortPicksTable(2,'picksViewTable')">Round</th>
-        <th onclick="sortPicksTable(3,'picksViewTable')">Team</th>
-        <th onclick="sortPicksTable(4,'picksViewTable')">Round Points</th>
-        <th onclick="sortPicksTable(5,'picksViewTable')">Upset Points</th>
-        <th onclick="sortPicksTable(6,'picksViewTable')">Total Points</th>
-        <th onclick="sortPicksTable(7,'picksViewTable')">Result</th>
+        <th onclick="sortTable(0,'picksViewTable')">Entrant</th>
+        <th onclick="sortTable(1,'picksViewTable')">Conference</th>
+        <th onclick="sortTable(2,'picksViewTable')">Round</th>
+        <th onclick="sortTable(3,'picksViewTable')">Team</th>
+        <th onclick="sortTable(4,'picksViewTable')">Round Points</th>
+        <th onclick="sortTable(5,'picksViewTable')">Upset Points</th>
+        <th onclick="sortTable(6,'picksViewTable')">Total Points</th>
+        <th onclick="sortTable(7,'picksViewTable')">Result</th>
     </tr>
     </thead>
     <tbody>
